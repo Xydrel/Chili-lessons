@@ -30,7 +30,7 @@ public:
 	void PutPixel( int x,int y,int r,int g,int b );
 	void BeginFrame();
 	void EndFrame();
-	void DrawLine(int x1, int x2, int y1, int y2, int r, int g, int b);
+	void DrawLine(int x1, int x2, int y1, int y2, int r, int g, int bl);
 private:
 	IDirect3D9*			pDirect3D;
 	IDirect3DDevice9*	pDevice;
