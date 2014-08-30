@@ -73,30 +73,68 @@ void D3DGraphics::EndFrame()
 	pDevice->Present( NULL,NULL,NULL,NULL );
 }
 
-void D3DGraphics::DrawLine(int x1, int x2, int  y1, int y2, int r, int g, int bl)
+void D3DGraphics::DrawLine( float x1, float x2, float  y1, float y2, int r, int g, int bl )
 {
 	// Function to draw a pixel line.
-	int dy = y2 - y1;
-	int dx = x2 - x1;
+	float dy = y2 - y1;
+	float dx = x2 - x1;
 
-	if (abs(dy) > abs(dx))
+	if ( abs(dy) > abs(dx) )
 	{
-		float m = (float)dx / (float)dy;
+		float m = ( float )dx / ( float )dy;
 		float b = x1 - m*y1;
-		for (int y = y1; y <= y2; y++)
+		for ( float y = y1; y <= y2; y++ )
 		{
 			float x = m*y + b;  // slope intercept form
-			PutPixel(x, y, r, g, bl);
+			PutPixel( x, y, r, g, bl );
 		}
 	}
 	else
 	{
-		float m = (float)dy / (float)dx;
+		float m = ( float )dy / ( float )dx;
 		float b = y1 - m*x1;
-		for (int x = x1; x <= x2; x++)
+		for ( float x = x1; x <= x2; x++ )
 		{
 			float y = m*x+b;  // slope intercept form
-			PutPixel(x, y, r, g, bl);
+			PutPixel( x, y, r, g, bl );
 		}
 	}
+}
+
+void D3DGraphics::DrawCircle( float cx, float cy, float rad, int r, int g, int b )
+{
+	// Needs center x and y location on a quadratic plane.
+	// Equation of a point for a circle
+	// y = sqrt of r^2 - x^2
+
+	float radSqr = rad * rad;
+
+	// Chili Solution
+	float x0 = 0.70710685F*rad + 0.5F;
+	for ( float x = 0; x <= x0; ++x )
+	{
+		float y = sqrt( radSqr - x*x ) + 0.5F;
+		//PutPixel( cx, cy, 255, 0, 0 );  // draw pixel at center of circle
+		PutPixel( cx + x, cy + y, r, g, b );
+		PutPixel( cx + y, cy + x, r, g, b );
+		PutPixel( cx - x, cy + y, r, g, b );
+		PutPixel( cx - y, cy + x, r, g, b );
+		PutPixel( cx - x, cy - y, r, g, b );
+		PutPixel( cx - y, cy - x, r, g, b );
+		PutPixel( cx + x, cy - y, r, g, b );
+		PutPixel( cx + y, cy - x, r, g, b );
+	}
+
+	//for ( float x = -rad; x <= rad; ++x )
+	//{
+	//	float y = sqrt( radSqr - x*x ) + 0.5F;
+	//	PutPixel( cx + x, cy + y, r, g, b );
+	//	PutPixel( cx - x, cy - y, r, g, b );
+	//}
+	//for ( float y = +rad; y >= -rad; --y )
+	//{
+	//	float x = sqrt( radSqr - y*y ) + 0.5F;
+	//	PutPixel( cx + x, cy + y, r, g, b );
+	//	PutPixel( cx - x, cy - y, r, g, b );
+	//}
 }
