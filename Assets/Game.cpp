@@ -22,7 +22,9 @@
 
 Game::Game( HWND hWnd,const KeyboardServer& kServer )
 :	gfx ( hWnd ),
-	kbd( kServer )
+	kbd( kServer ),
+	x( 500 ),
+	y( 300 )
 {}
 
 void Game::Go()
@@ -36,9 +38,31 @@ void Game::ComposeFrame()
 {
 	// TODO: insert frame drawing code here
 	
-	for (int y = 100; y < 300; y++)
-	{
-		gfx.PutPixel(400, y, 255, 255, 255);
-	}
+	//for (int y = 100; y < 300; y++)
+	//{
+	//	gfx.PutPixel(400, y, 255, 255, 255);
+	//}
 
+
+	//if (kbd.RightIsPressed)
+	//{
+	//	x++;
+	//}
+
+	//if (kbd.LeftIsPressed)
+	//{
+	//	x--;
+	//}
+
+	//if (kbd.UpIsPressed)
+	//{
+	//	y++;
+	//}
+
+	//if (kbd.DownIsPressed)
+	//{
+	//	y--;
+	//}
+
+	//gfx.DrawLine(300, 400, 300, 400, 255, 255, 255);
 }
