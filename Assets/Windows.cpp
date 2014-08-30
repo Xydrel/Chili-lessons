@@ -1,22 +1,22 @@
 /****************************************************************************************** 
- *	Chili DirectX Framework Version 11.12.17											  *	
+ *	 DirectX Framework Version 11.12.17											  *	
  *	Windows.cpp																			  *
  *	Copyright 2011 PlanetChili.net														  *
  *																						  *
- *	This file is part of The Chili DirectX Framework.									  *
+ *	This file is part of The  DirectX Framework.									  *
  *																						  *
- *	The Chili DirectX Framework is free software: you can redistribute it and/or modify	  *
+ *	The  DirectX Framework is free software: you can redistribute it and/or modify	  *
  *	it under the terms of the GNU General Public License as published by				  *
  *	the Free Software Foundation, either version 3 of the License, or					  *
  *	(at your option) any later version.													  *
  *																						  *
- *	The Chili DirectX Framework is distributed in the hope that it will be useful,		  *
+ *	The  DirectX Framework is distributed in the hope that it will be useful,		  *
  *	but WITHOUT ANY WARRANTY; without even the implied warranty of						  *
  *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the						  *
  *	GNU General Public License for more details.										  *
  *																						  *
  *	You should have received a copy of the GNU General Public License					  *
- *	along with The Chili DirectX Framework.  If not, see <http://www.gnu.org/licenses/>.  *
+ *	along with The  DirectX Framework.  If not, see <http://www.gnu.org/licenses/>.  *
  ******************************************************************************************/
 
 #include <Windows.h>
@@ -88,7 +88,7 @@ int WINAPI wWinMain( HINSTANCE hInst,HINSTANCE,LPWSTR,INT )
 {
 	WNDCLASSEX wc = { sizeof( WNDCLASSEX ),CS_CLASSDC,MsgProc,0,0,
                       GetModuleHandle( NULL ),NULL,NULL,NULL,NULL,
-                      L"Chili DirectX Framework Window",NULL };
+                      L" DirectX Framework Window",NULL };
     wc.hIconSm = (HICON)LoadImage( hInst,MAKEINTRESOURCE( IDI_APPICON16 ),IMAGE_ICON,16,16,0 );
 	wc.hIcon   = (HICON)LoadImage( hInst,MAKEINTRESOURCE( IDI_APPICON32 ),IMAGE_ICON,32,32,0 );
     RegisterClassEx( &wc );
@@ -99,7 +99,7 @@ int WINAPI wWinMain( HINSTANCE hInst,HINSTANCE,LPWSTR,INT )
 	wr.top = 250;
 	wr.bottom = 600 + wr.top;
 	AdjustWindowRect( &wr,WS_OVERLAPPEDWINDOW,FALSE );
-    HWND hWnd = CreateWindowW( L"Chili DirectX Framework Window",L"Chili DirectX Framework",
+    HWND hWnd = CreateWindowW( L" DirectX Framework Window",L" DirectX Framework",
                               WS_OVERLAPPEDWINDOW,wr.left,wr.top,wr.right-wr.left,wr.bottom-wr.top,
                               NULL,NULL,wc.hInstance,NULL );
 
@@ -123,6 +123,6 @@ int WINAPI wWinMain( HINSTANCE hInst,HINSTANCE,LPWSTR,INT )
 		}
     }
 
-    UnregisterClass( L"Chili DirectX Framework Window",wc.hInstance );
+    UnregisterClass( L" DirectX Framework Window",wc.hInstance );
     return 0;
 }
