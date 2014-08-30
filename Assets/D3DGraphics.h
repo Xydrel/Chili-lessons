@@ -21,6 +21,7 @@
 #pragma once
 
 #include <d3d9.h>
+#include <math.h>
 
 class D3DGraphics
 {
