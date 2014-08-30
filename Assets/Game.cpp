@@ -44,25 +44,25 @@ void Game::ComposeFrame()
 	//}
 
 
-	//if (kbd.RightIsPressed)
-	//{
-	//	x++;
-	//}
+	if (kbd.RightIsPressed())
+	{
+		x++;
+	}
 
-	//if (kbd.LeftIsPressed)
-	//{
-	//	x--;
-	//}
+	if (kbd.LeftIsPressed())
+	{
+		x--;
+	}
 
-	//if (kbd.UpIsPressed)
-	//{
-	//	y++;
-	//}
+	if (kbd.UpIsPressed())
+	{
+		y++;
+	}
 
-	//if (kbd.DownIsPressed)
-	//{
-	//	y--;
-	//}
+	if (kbd.DownIsPressed())
+	{
+		y--;
+	}
 
 	//gfx.DrawLine(300, 400, 300, 400, 255, 255, 255);
 }
