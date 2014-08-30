@@ -29,8 +29,6 @@ public:
 	Game( HWND hWnd,const KeyboardServer& kServer );
 	void Go();
 private:
-	int x;
-	int y;
 	void ComposeFrame();
 	/********************************/
 	/*  User Functions              */
@@ -43,8 +41,10 @@ private:
 	KeyboardClient kbd;
 	/********************************/
 	/*  User Variables              */
-	
+
 	// TODO: User variables go here
+	int x;
+	int y;
 
 	/********************************/
 };
