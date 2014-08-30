@@ -18,6 +18,7 @@
  *	You should have received a copy of the GNU General Public License					  *
  *	along with The Chili DirectX Framework.  If not, see <http://www.gnu.org/licenses/>.  *
  ******************************************************************************************/
+
 #include "D3DGraphics.h"
 
 D3DGraphics::D3DGraphics( HWND hWnd )
@@ -77,12 +78,25 @@ void D3DGraphics::DrawLine(int x1, int x2, int  y1, int y2, int r, int g, int bl
 	// Function to draw a pixel line.
 	int dy = y2 - y1;
 	int dx = x2 - x1;
-	int m = dy / dx;
-	int b = y1 - m*x1;
 
-	for (int x = x1; x <= x2; x++)
+	if (abs(dy) > abs(dx))
 	{
-		int y = m*x+b;  // slope intercept form
-		PutPixel(x, y, r, g, bl);
+		float m = (float)dx / (float)dy;
+		float b = x1 - m*y1;
+		for (int y = y1; y <= y2; y++)
+		{
+			float x = m*y + b;  // slope intercept form
+			PutPixel(x, y, r, g, bl);
+		}
+	}
+	else
+	{
+		float m = (float)dy / (float)dx;
+		float b = y1 - m*x1;
+		for (int x = x1; x <= x2; x++)
+		{
+			float y = m*x+b;  // slope intercept form
+			PutPixel(x, y, r, g, bl);
+		}
 	}
 }
