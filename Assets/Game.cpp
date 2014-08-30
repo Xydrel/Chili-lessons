@@ -23,7 +23,7 @@
 Game::Game( HWND hWnd,const KeyboardServer& kServer )
 :	gfx ( hWnd ),
 	kbd( kServer ),
-	x( 500 ),
+	x( 400 ),
 	y( 300 )
 {}
 
@@ -43,7 +43,6 @@ void Game::ComposeFrame()
 	//	gfx.PutPixel(400, y, 255, 255, 255);
 	//}
 
-
 	if (kbd.RightIsPressed())
 	{
 		x++;
@@ -56,13 +55,14 @@ void Game::ComposeFrame()
 
 	if (kbd.UpIsPressed())
 	{
-		y++;
+		y--;
 	}
 
 	if (kbd.DownIsPressed())
 	{
-		y--;
+		y++;
 	}
 
-	//gfx.DrawLine(300, 400, 300, 400, 255, 255, 255);
+	//gfx.DrawLine( x, y, 200, 400, 255, 255, 255 );
+	gfx.DrawCircle( x, y, 25, 255, 255, 255 );
 }
