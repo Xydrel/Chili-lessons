@@ -22,16 +22,21 @@
 
 #include <d3d9.h>
 #include <math.h>
+#include <stdlib.h>
 
 class D3DGraphics
 {
 public:
 	D3DGraphics( HWND hWnd );
 	~D3DGraphics();
-	void PutPixel( int x,int y,int r,int g,int b );
+
+	void PutPixel( int x, int y, int r, int g, int b );
+	void DrawLine( float x1, float x2, float y1, float y2, int r, int g, int bl );
+	void DrawCircle( float cx, float cy, float rad, int r, int g, int b );
+
 	void BeginFrame();
 	void EndFrame();
-	void DrawLine(int x1, int x2, int y1, int y2, int r, int g, int bl);
+
 private:
 	IDirect3D9*			pDirect3D;
 	IDirect3DDevice9*	pDevice;
