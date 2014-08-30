@@ -94,6 +94,7 @@
     <ClInclude Include="..\Assets\Keyboard.h" />
     <ClInclude Include="..\Assets\Resource.h" />
     <ClInclude Include="..\Assets\Timer.h" />
+    <ClInclude Include="Cordenant.h" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="..\Assets\ChiliDirectXFramework.res" />
