@@ -18,6 +18,7 @@
  *	You should have received a copy of the GNU General Public License					  *
  *	along with The Chili DirectX Framework.  If not, see <http://www.gnu.org/licenses/>.  *
  ******************************************************************************************/
+
 #include <Windows.h>
 #include <wchar.h>
 #include "Game.h"
@@ -93,9 +94,9 @@ int WINAPI wWinMain( HINSTANCE hInst,HINSTANCE,LPWSTR,INT )
     RegisterClassEx( &wc );
 	
 	RECT wr;
-	wr.left = 100;
+	wr.left = 500;
 	wr.right = 800 + wr.left;
-	wr.top = 100;
+	wr.top = 250;
 	wr.bottom = 600 + wr.top;
 	AdjustWindowRect( &wr,WS_OVERLAPPEDWINDOW,FALSE );
     HWND hWnd = CreateWindowW( L"Chili DirectX Framework Window",L"Chili DirectX Framework",
