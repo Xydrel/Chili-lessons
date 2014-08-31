@@ -23,7 +23,7 @@
 Game::Game( HWND hWnd,const KeyboardServer& kServer )
 	: gfx ( hWnd )
 	, kbd( kServer )
-//	, m_logic( &gfx )
+	, m_logic( &gfx )
 	, x( 400 )
 	, y( 300 )
 {}
@@ -63,6 +63,11 @@ void Game::ComposeFrame()
 	{
 		y++;
 	}
+
+
+	m_logic.m_DEBUG_DrawPlayerPieceCircle();
+	m_logic.DrawGameBoard();
+
 
 	//gfx.DrawLine( 500,50, 300, 400, 255, 255, 255 );
 	//gfx.DrawCircle( x, y, 25, 255, 255, 255 );

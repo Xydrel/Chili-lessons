@@ -40,7 +40,7 @@ private:
 private:
 	D3DGraphics		gfx;
 	KeyboardClient	kbd;
-	//GameLogic		m_logic;
+	GameLogic		m_logic;
 	/********************************/
 	/*  User Variables              */
 
