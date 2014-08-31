@@ -63,6 +63,6 @@ void Game::ComposeFrame()
 		y++;
 	}
 
-	//gfx.DrawLine( x, y, 200, 400, 255, 255, 255 );
-	gfx.DrawCircle( x, y, 25, 255, 255, 255 );
+	gfx.DrawLine( 500,50, 300, 400, 255, 255, 255 );
+	//gfx.DrawCircle( x, y, 25, 255, 255, 255 );
 }
