@@ -37,6 +37,7 @@ public:
 	void DrawPlayerPieceX( float x, float y, int r, int g, int b );
 	void DrawPlayerPieceCircle( float x, float y, int r, int g, int b );
 	void DrawCircle( float cx, float cy, float rad, int r, int g, int b );
+	void DrawPlayBoard();
 
 	void BeginFrame();
 	void EndFrame();
