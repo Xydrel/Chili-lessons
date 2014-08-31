@@ -159,8 +159,10 @@ void D3DGraphics::DrawCircle( float cx, float cy, float rad, int r, int g, int b
 
 void D3DGraphics::DrawPlayerPieceX( float x, float y, int r, int g, int b )
 {
-	DrawLine( 500, 50, 300, 400, r, g, b );
-	DrawLine( 500, 50, 300, 400, r, g, b );
+	// since the draw line function is programed the way it is
+	// the lines for the 'x' will have to be offset from center (x,y)
+	DrawLine( x, y, 110, 190, r, g, b );
+	DrawLine( x, y, 190, 110, r, g, b );
 }
 
 void D3DGraphics::DrawPlayerPieceCircle( float x, float y, int r, int g, int b )
