@@ -165,5 +165,17 @@ void D3DGraphics::DrawPlayerPieceX( float x, float y, int r, int g, int b )
 
 void D3DGraphics::DrawPlayerPieceCircle( float x, float y, int r, int g, int b )
 {
-	DrawCircle( x, y, 25, r, g, b );
+	DrawCircle( x, y, 40, r, g, b );
+}
+
+void D3DGraphics::DrawPlayBoard()
+{
+	DrawLine( 250, 550, 100, 100, 255, 255, 255 );  // draw top line
+	DrawLine( 250, 550, 500, 500, 255, 255, 255 );  // draw bottom
+	DrawLine( 250, 550, 370, 370, 255, 255, 255 );  // draw lower cross line
+	DrawLine( 250, 550, 230, 230, 255, 255, 255 );  // draw top cross line
+	DrawLine( 250, 250, 100, 500, 255, 255, 255 );  // draw left side
+	DrawLine( 550, 550, 100, 500, 255, 255, 255 );  // draw right side
+	DrawLine( 350, 350, 100, 500, 255, 255, 255 );  // draw left inside side
+	DrawLine( 450, 450, 100, 500, 255, 255, 255 );  // draw right inside side
 }
