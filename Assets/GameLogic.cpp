@@ -1,7 +1,26 @@
 
 #include "GameLogic.h"
 
-void GameLogic::DrawPlayerPiece()
+GameLogic::GameLogic( D3DGraphics* gfx )
 {
-	m_pGfx->DrawCircle( 500, 300, 25, 255, 255, 255 );
+	m_pGfx				= gfx;
+	m_circlePlayer		= PlayerCircle();
+	m_xPlayerInstance	= PlayerX();
+	m_GameBoard			= GameBoard();
+	m_xplayer			= m_xPlayerInstance.GetPlayerXInstance();
+}
+
+void GameLogic::m_DEBUG_DrawPlayerPieceCircle( )
+{
+	m_pGfx->DrawPlayerPieceCircle( 500, 300, 255, 255, 255 );
+}
+
+void GameLogic::m_DEBUG_DrawPlayerPIeceX()
+{
+	// call gfx function to draw x
+}
+
+void GameLogic::DrawGameBoard()
+{
+	m_pGfx->DrawPlayBoard();
 }
