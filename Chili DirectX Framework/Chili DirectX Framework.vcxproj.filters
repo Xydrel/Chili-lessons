@@ -30,6 +30,21 @@
     <ClCompile Include="..\Assets\Windows.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\Assets\GameLogic.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Assets\PlayerCircle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Assets\PlayerX.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Assets\GamePlayer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Assets\GameBoard.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Assets\D3DGraphics.h">
@@ -50,9 +65,6 @@
     <ClInclude Include="Cordenant.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Assets\Player.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\Assets\PlayerCircle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -63,6 +75,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\Assets\GameLogic.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Assets\GamePlayer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

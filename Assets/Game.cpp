@@ -21,10 +21,11 @@
 #include "Game.h"
 
 Game::Game( HWND hWnd,const KeyboardServer& kServer )
-:	gfx ( hWnd ),
-	kbd( kServer ),
-	x( 400 ),
-	y( 300 )
+	: gfx ( hWnd )
+	, kbd( kServer )
+//	, m_logic( &gfx )
+	, x( 400 )
+	, y( 300 )
 {}
 
 void Game::Go()
@@ -63,6 +64,6 @@ void Game::ComposeFrame()
 		y++;
 	}
 
-	gfx.DrawLine( 500,50, 300, 400, 255, 255, 255 );
+	//gfx.DrawLine( 500,50, 300, 400, 255, 255, 255 );
 	//gfx.DrawCircle( x, y, 25, 255, 255, 255 );
 }

@@ -38,8 +38,9 @@ private:
 
 	/********************************/
 private:
-	D3DGraphics gfx;
-	KeyboardClient kbd;
+	D3DGraphics		gfx;
+	KeyboardClient	kbd;
+	//GameLogic		m_logic;
 	/********************************/
 	/*  User Variables              */
 

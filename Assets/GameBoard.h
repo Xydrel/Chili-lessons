@@ -1,6 +1,5 @@
 
 
-#include "D3DGraphics.h"
 
 class GameBoard
 {
@@ -12,10 +11,3 @@ private:
 
 };
 
-GameBoard::GameBoard()
-{
-}
-
-GameBoard::~GameBoard()
-{
-}
