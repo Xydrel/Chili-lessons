@@ -11,10 +11,14 @@ public:
 	~PlayerX();
 
 	void DrawPlayerPiece();
+	PlayerX* GetPlayerXInstance();
 
 public:
 // ================================================
 // Public Member Variables
+	int				red		= m_iPlayerRedPalet;
+	int				green	= m_iPlayerGreenPalet;
+	int				blue	= m_iPlayerBluePalet;
 
 private:
 	int				m_iPlayerRedPalet	= 255;
