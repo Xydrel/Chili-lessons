@@ -66,6 +66,7 @@ void Game::ComposeFrame()
 
 
 	m_logic.m_DEBUG_DrawPlayerPieceCircle();
+	m_logic.m_DEBUG_DrawPlayerPIeceX();
 	m_logic.DrawGameBoard();
 
 
