@@ -156,3 +156,14 @@ void D3DGraphics::DrawCircle( float cx, float cy, float rad, int r, int g, int b
 	//	PutPixel( cx - x, cy - y, r, g, b );
 	//}
 }
+
+void D3DGraphics::DrawPlayerPieceX( float x, float y, int r, int g, int b )
+{
+	DrawLine( 500, 50, 300, 400, r, g, b );
+	DrawLine( 500, 50, 300, 400, r, g, b );
+}
+
+void D3DGraphics::DrawPlayerPieceCircle( float x, float y, int r, int g, int b )
+{
+	DrawCircle( x, y, 25, r, g, b );
+}

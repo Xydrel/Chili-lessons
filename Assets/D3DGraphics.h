@@ -27,17 +27,23 @@
 class D3DGraphics
 {
 public:
+// ================================================
+// Public Member Functions
 	D3DGraphics( HWND hWnd );
 	~D3DGraphics();
 
 	void PutPixel( int x, int y, int r, int g, int b );
 	void DrawLine( float x1, float x2, float y1, float y2, int r, int g, int bl );
+	void DrawPlayerPieceX( float x, float y, int r, int g, int b );
+	void DrawPlayerPieceCircle( float x, float y, int r, int g, int b );
 	void DrawCircle( float cx, float cy, float rad, int r, int g, int b );
 
 	void BeginFrame();
 	void EndFrame();
 
 private:
+// ================================================
+// Private Member Variables
 	IDirect3D9*			pDirect3D;
 	IDirect3DDevice9*	pDevice;
 };
