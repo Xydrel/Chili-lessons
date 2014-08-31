@@ -62,6 +62,9 @@
     <ClInclude Include="..\Assets\GameBoard.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\Assets\GameLogic.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="..\Assets\ChiliDirectXFramework.res">

@@ -22,8 +22,7 @@
 
 #include "D3DGraphics.h"
 #include "Keyboard.h"
-#include "PlayerCircle.h"
-#include "PlayerX.h"
+#include "GameLogic.h"
 
 class Game
 {

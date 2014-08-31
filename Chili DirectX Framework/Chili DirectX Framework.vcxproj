@@ -92,6 +92,7 @@
     <ClInclude Include="..\Assets\D3DGraphics.h" />
     <ClInclude Include="..\Assets\Game.h" />
     <ClInclude Include="..\Assets\GameBoard.h" />
+    <ClInclude Include="..\Assets\GameLogic.h" />
     <ClInclude Include="..\Assets\Keyboard.h" />
     <ClInclude Include="..\Assets\Player.h" />
     <ClInclude Include="..\Assets\PlayerCircle.h" />
