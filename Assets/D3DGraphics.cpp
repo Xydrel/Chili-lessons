@@ -81,8 +81,17 @@ void D3DGraphics::DrawLine( float x1, float x2, float  y1, float y2, int r, int 
 
 	if ( abs(dy) > abs(dx) )
 	{
+		if ( y1 > y2 )
+		{
+			float temp = y2;
+			y2	 = y1;
+			y1	 = temp;
+			temp = x2;
+			x2	 = x1;
+			x1 = temp;
+		}
 		float m = ( float )dx / ( float )dy;
-		float b = x1 - m*y1;
+		float b = x1 - m*y1 + 0.5F;
 		for ( float y = y1; y <= y2; y++ )
 		{
 			float x = m*y + b;  // slope intercept form
@@ -91,11 +100,20 @@ void D3DGraphics::DrawLine( float x1, float x2, float  y1, float y2, int r, int 
 	}
 	else
 	{
+		if ( x1 > x2 )
+		{
+			float temp = y2;
+			y2 = y1;
+			y1 = temp;
+			temp = x2;
+			x2 = x1;
+			x1 = temp;
+		}
 		float m = ( float )dy / ( float )dx;
 		float b = y1 - m*x1;
 		for ( float x = x1; x <= x2; x++ )
 		{
-			float y = m*x+b;  // slope intercept form
+			float y = m*x+b + 0.5F;  // slope intercept form
 			PutPixel( x, y, r, g, bl );
 		}
 	}
