@@ -21,21 +21,29 @@ GameLogic::~GameLogic()
 	{
 		m_xplayer = NULL;
 	}
-
 }
 
 void GameLogic::m_DEBUG_DrawPlayerPieceCircle( )
 {
-	m_pGfx->DrawPlayerPieceCircle( 500, 300, 255, 255, 255 );
+	if ( m_pGfx )
+	{
+		m_pGfx->DrawPlayerPieceCircle( 500, 300, 255, 255, 255 );
+	}
 }
 
 void GameLogic::m_DEBUG_DrawPlayerPIeceX()
 {
-	// call gfx function to draw x
-	m_pGfx->DrawPlayerPieceX( 260,340, 255,255,255 );
+	if ( m_pGfx )
+	{
+		// call gfx function to draw x
+		m_pGfx->DrawPlayerPieceX( 260,340, 255,255,255 );
+	}
 }
 
 void GameLogic::DrawGameBoard()
 {
-	m_pGfx->DrawPlayBoard();
+	if ( m_pGfx )
+	{
+		m_pGfx->DrawPlayBoard();
+	}
 }
