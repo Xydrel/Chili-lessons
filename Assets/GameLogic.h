@@ -5,8 +5,10 @@
 #include "PlayerX.h"
 #include <string>
 
+
 #define VERIFY(val) if (val == 0x00) EXCEPTION_EXIT_UNWIND
 
+using namespace std;
 
 class GameLogic
 {
@@ -27,10 +29,11 @@ private:
 private:
 // =================================================
 //Member Variables
-	D3DGraphics* m_pGfx;				// Pointer to gfx object to draw to screen
-	PlayerCircle m_circlePlayer;		// Circle player object instance
-	PlayerX*	 m_xplayer;				// X player object instance pointer
-	GameBoard	 m_GameBoard;			// Game board object instance
-	PlayerX		 m_xPlayerInstance;
+	D3DGraphics*		m_pGfx;				// Pointer to gfx object to draw to screen
+	PlayerCircle		m_circlePlayer;		// Circle player object instance
+	PlayerX*			m_xplayer;				// X player object instance pointer
+	GameBoard			m_GameBoard;			// Game board object instance
+	PlayerX				m_xPlayerInstance;
+	//vector<int>			m_gameBoardArray;
 };
 
