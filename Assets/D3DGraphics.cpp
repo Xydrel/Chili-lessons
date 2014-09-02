@@ -163,6 +163,9 @@ void D3DGraphics::DrawPlayerPieceX( float x, float y, int r, int g, int b )
 	// the lines for the 'x' will have to be offset from center (x,y)
 	DrawLine( x, y, 110, 190, r, g, b );
 	DrawLine( x, y, 190, 110, r, g, b );
+
+	// there will actually have to be game logic to determine which row
+	// to draw the x on and pass that into this function.
 }
 
 void D3DGraphics::DrawPlayerPieceCircle( float x, float y, int r, int g, int b )
@@ -172,12 +175,12 @@ void D3DGraphics::DrawPlayerPieceCircle( float x, float y, int r, int g, int b )
 
 void D3DGraphics::DrawPlayBoard()
 {
-	DrawLine( 250, 550, 100, 100, 255, 255, 255 );  // draw top line
-	DrawLine( 250, 550, 500, 500, 255, 255, 255 );  // draw bottom
-	DrawLine( 250, 550, 370, 370, 255, 255, 255 );  // draw lower cross line
-	DrawLine( 250, 550, 230, 230, 255, 255, 255 );  // draw top cross line
-	DrawLine( 250, 250, 100, 500, 255, 255, 255 );  // draw left side
-	DrawLine( 550, 550, 100, 500, 255, 255, 255 );  // draw right side
-	DrawLine( 350, 350, 100, 500, 255, 255, 255 );  // draw left inside side
-	DrawLine( 450, 450, 100, 500, 255, 255, 255 );  // draw right inside side
+	DrawLine( 200, 600, 100, 100, 255, 255, 255 );  // draw top line
+	DrawLine( 200, 600, 500, 500, 255, 255, 255 );  // draw bottom
+	DrawLine( 200, 600, 370, 370, 255, 255, 255 );  // draw lower cross line
+	DrawLine( 200, 600, 230, 230, 255, 255, 255 );  // draw top cross line
+	DrawLine( 200, 200, 100, 500, 255, 255, 255 );  // draw left side
+	DrawLine( 600, 600, 100, 500, 255, 255, 255 );  // draw right side
+	DrawLine( 333, 333, 100, 500, 255, 255, 255 );  // draw left inside side
+	DrawLine( 466, 466, 100, 500, 255, 255, 255 );  // draw right inside side
 }
