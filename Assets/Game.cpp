@@ -24,8 +24,6 @@ Game::Game( HWND hWnd,const KeyboardServer& kServer )
 	: gfx ( hWnd )
 	, kbd( kServer )
 	, m_logic( &gfx )
-	, x( 400 )
-	, y( 300 )
 {}
 
 void Game::Go()
@@ -38,38 +36,32 @@ void Game::Go()
 void Game::ComposeFrame()
 {
 	// TODO: insert frame drawing code here
-	
-	//for (int y = 100; y < 300; y++)
+
+
+	//if (kbd.RightIsPressed())
 	//{
-	//	gfx.PutPixel(400, y, 255, 255, 255);
+	//	x++;
 	//}
 
-	if (kbd.RightIsPressed())
-	{
-		x++;
-	}
+	//if (kbd.LeftIsPressed())
+	//{
+	//	x--;
+	//}
 
-	if (kbd.LeftIsPressed())
-	{
-		x--;
-	}
+	//if (kbd.UpIsPressed())
+	//{
+	//	y--;
+	//}
 
-	if (kbd.UpIsPressed())
-	{
-		y--;
-	}
-
-	if (kbd.DownIsPressed())
-	{
-		y++;
-	}
+	//if (kbd.DownIsPressed())
+	//{
+	//	y++;
+	//}
 
 
-	m_logic.m_DEBUG_DrawPlayerPieceCircle();
-	m_logic.m_DEBUG_DrawPlayerPIeceX();
-	m_logic.DrawGameBoard();
+	//m_logic.m_DEBUG_DrawPlayerPieceCircle();
+	//m_logic.m_DEBUG_DrawPlayerPIeceX();
+	m_logic.DrawGameBoard(250,150);
+	m_logic.DrawX( 250, 150 );
 
-
-	//gfx.DrawLine( 500,50, 300, 400, 255, 255, 255 );
-	//gfx.DrawCircle( x, y, 25, 255, 255, 255 );
 }

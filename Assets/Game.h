@@ -40,13 +40,12 @@ private:
 private:
 	D3DGraphics		gfx;
 	KeyboardClient	kbd;
-	GameLogic		m_logic;
 	/********************************/
 	/*  User Variables              */
 
 	// TODO: User variables go here
-	int x;
-	int y;
+	GameLogic		m_logic;
+
 
 	/********************************/
 };
