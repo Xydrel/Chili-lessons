@@ -16,6 +16,7 @@ void PlayerX::DrawPlayerPiece()
 
 PlayerX* PlayerX::GetPlayerXInstance()
 {
-	PlayerX* player = new PlayerX( );
-	return player;
+	PlayerX player = PlayerX();
+	PlayerX* pPlayerX = &player;
+	return pPlayerX;
 }
