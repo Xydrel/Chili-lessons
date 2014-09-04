@@ -8,8 +8,6 @@
 
 #define VERIFY(val) if (val == 0x00) EXCEPTION_EXIT_UNWIND
 
-using namespace std;
-
 class GameLogic
 {
 public:
@@ -20,7 +18,12 @@ public:
 
 	void m_DEBUG_DrawPlayerPieceCircle();	// Performs a draw of a player piece on the screen - testing the draw only
 	void m_DEBUG_DrawPlayerPIeceX();		// Draws the x on screen for debugging
-	void DrawGameBoard();					// Draws the game board on the screen
+	void DrawGameBoard(int x, int y);					// Draws the game board on the screen
+	void DrawPlayerPieceCircle( float x, float y, int r, int g, int b );
+	void DrawPlayerPieceX( float x, float y, int r, int g, int b );
+	void DrawGrid(int x, int y);
+	void DrawX( int x, int y );
+	void DrawO( int x, int y );
 
 private:
 // =================================================
@@ -34,6 +37,5 @@ private:
 	PlayerX*			m_xplayer;				// X player object instance pointer
 	GameBoard			m_GameBoard;			// Game board object instance
 	PlayerX				m_xPlayerInstance;
-	//vector<int>			m_gameBoardArray;
 };
 
