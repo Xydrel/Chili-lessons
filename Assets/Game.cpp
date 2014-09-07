@@ -24,7 +24,7 @@
 Game::Game( HWND hWnd,const KeyboardServer& kServer )
 	: gfx ( hWnd )
 	, kbd( kServer )
-	, m_gameLogic( &gfx )
+	, m_gameLogic( &gfx, &kbd )
 {}
 
 // --------------------------------------------------------------------------------
@@ -38,49 +38,33 @@ void Game::Go()
 // --------------------------------------------------------------------------------
 void Game::ComposeFrame()
 {
-	// TODO: insert frame drawing code here
-
-
-	//if (kbd.RightIsPressed())
+	//if ( m_gameLogic != 0x00 )
 	//{
-	//	x++;
-	//}
+		m_gameLogic.MoveCursorWithKeyboard();
 
-	//if (kbd.LeftIsPressed())
-	//{
-	//	x--;
-	//}
-
-	//if (kbd.UpIsPressed())
-	//{
-	//	y--;
-	//}
-
-	//if (kbd.DownIsPressed())
-	//{
-	//	y++;
-	//}
-
-	m_gameLogic.DrawGameBoard( m_iBaseX, m_iBaseY );
-	for ( int iy = 0; iy < 3; iy++ )
-	{
-		for ( int ix = 0; ix < 3; ix++ )
+		m_gameLogic.DrawGameBoard( m_iBaseX, m_iBaseY );
+		m_gameLogic.DrawCursor( m_iBaseX + m_gameLogic.cursorX * m_iSquareSize, 
+								m_iBaseY + m_gameLogic.cursorY * m_iSquareSize );
+		for ( int iy = 0; iy < 3; iy++ )
 		{
-			if ( m_gameLogic.m_GameBoard.GetCellState(ix, iy) == GameBoard::X )
+			for ( int ix = 0; ix < 3; ix++ )
 			{
-				m_gameLogic.DrawX( m_iBaseX + ix * m_iSquareSize, m_iBaseY + iy * m_iSquareSize );
-			}
-			else if ( m_gameLogic.m_GameBoard.GetCellState( ix, iy ) == GameBoard::O )
-			{
-				m_gameLogic.DrawO( m_iBaseX + ix * m_iSquareSize, m_iBaseY + iy * m_iSquareSize );
+				if ( m_gameLogic.gameBoard.GetCellState(ix, iy) == GameBoard::X )
+				{
+					m_gameLogic.DrawX( m_iBaseX + ix * m_iSquareSize, m_iBaseY + iy * m_iSquareSize );
+				}
+				else if ( m_gameLogic.gameBoard.GetCellState( ix, iy ) == GameBoard::O )
+				{
+					m_gameLogic.DrawO( m_iBaseX + ix * m_iSquareSize, m_iBaseY + iy * m_iSquareSize );
+				}
 			}
 		}
-	}
 
 
-	// Debugging piece drawing at starting position
-	/*m_gameLogic.DrawGameBoard( m_baseX, m_baseY );*/
-	//m_gameLogic.DrawX( m_baseX, m_baseY );
-	//m_gameLogic.DrawO( m_baseX + 100, m_baseY + 100 );
+		// Debugging piece drawing at starting position
+		/*m_gameLogic.DrawGameBoard( m_baseX, m_baseY );*/
+		//m_gameLogic.DrawX( m_baseX, m_baseY );
+		//m_gameLogic.DrawO( m_baseX + 100, m_baseY + 100 );
+	//}
 
 }
