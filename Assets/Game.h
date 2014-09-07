@@ -44,7 +44,7 @@ private:
 	/*  User Variables              */
 
 	// TODO: User variables go here
-	GameLogic		m_logic;
+	GameLogic		m_gameLogic;
 
 
 	/********************************/

@@ -23,7 +23,7 @@
 Game::Game( HWND hWnd,const KeyboardServer& kServer )
 	: gfx ( hWnd )
 	, kbd( kServer )
-	, m_logic( &gfx )
+	, m_gameLogic( &gfx )
 {}
 
 void Game::Go()
@@ -59,9 +59,9 @@ void Game::ComposeFrame()
 	//}
 
 
-	//m_logic.m_DEBUG_DrawPlayerPieceCircle();
-	//m_logic.m_DEBUG_DrawPlayerPIeceX();
-	m_logic.DrawGameBoard(250,150);
-	m_logic.DrawX( 250, 150 );
+	// Debugging piece drawing at starting position
+	m_gameLogic.DrawGameBoard( 250, 150 );
+	m_gameLogic.DrawX( 250, 150 );
+	m_gameLogic.DrawO( 350, 250 );
 
 }
