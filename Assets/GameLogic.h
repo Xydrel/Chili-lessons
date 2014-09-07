@@ -19,26 +19,32 @@ public:
 
 // =================================================
 // Public Member Functions
-	void m_DEBUG_DrawPlayerPieceCircle();	// Performs a draw of a player piece on the screen - testing the draw only
-	void m_DEBUG_DrawPlayerPIeceX();		// Draws the x on screen for debugging
-	void DrawGameBoard(int x, int y);					// Draws the game board on the screen
-	void DrawGrid(int x, int y);
+	void DrawGameBoard(int x, int y);			// Draws the game board on the screen
 	void DrawX( int x, int y );
 	void DrawO( int x, int y );
+	void DrawCursor( int x, int y );
 
 private:
 // =================================================
 // Private Member Functions
 	void DrawPlayerPieceCircle( float x, float y, int r, int g, int b );
 	void DrawPlayerPieceX( float x, float y, int r, int g, int b );
+	void DrawGrid(int x, int y);
 
 private:
 // =================================================
 // Private Member Variables
-	D3DGraphics*		m_pGfx;				// Pointer to gfx object to draw to screen
-	PlayerCircle		m_circlePlayer;		// Circle player object instance
-	PlayerX*			m_xplayer;				// X player object instance pointer
+	D3DGraphics*	m_pGfx;					// Pointer to gfx object to draw to screen
+	PlayerCircle	m_circlePlayer;			// Circle player object instance
+	PlayerX*		m_xplayer;				// X player object instance pointer
+	PlayerX			m_xPlayerInstance;
+	int				m_iCursorX;				// Cursor X position on the board
+	int				m_iCursorY;				// cursor Y position on the board
+
+public:
+	// =================================================
+	// Public Member Variables
 	GameBoard			m_GameBoard;			// Game board object instance
-	PlayerX				m_xPlayerInstance;
+
 };
 
