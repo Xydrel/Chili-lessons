@@ -1,19 +1,26 @@
 
 #include "GameBoard.h"
 
+// --------------------------------------------------------------------------------
 GameBoard::GameBoard()
 {
 	for ( int index = 0; index < 9; index++ )
 	{
 		SetCellState( index, EMPTY );
 	}
+
+	// Temp Code to draw player pieces
+	SetCellState( 0, 0, X );
+	SetCellState( 1, 1, O );
 }
 
+// --------------------------------------------------------------------------------
 GameBoard::~GameBoard()
 {
 
 }
 
+// --------------------------------------------------------------------------------
 void GameBoard::SetCellState(int index, CellState state)
 {
 	switch ( index )
@@ -31,8 +38,41 @@ void GameBoard::SetCellState(int index, CellState state)
 	}
 }
 
-void GameBoard::SetGameBoardCords()
+// --------------------------------------------------------------------------------
+void GameBoard::SetCellState( int ix, int iy, CellState state )
 {
+	int index = iy * 3 + ix;
+	SetCellState( index, state );
+}
+
+
+// --------------------------------------------------------------------------------
+GameBoard::CellState GameBoard::GetCellState( int index )
+{
+	switch ( index )
+	{
+		case 0: return s0;
+		case 1: return s1;
+		case 2: return s2;
+		case 3: return s3;
+		case 4: return s4;
+		case 5: return s5;
+		case 6: return s6;
+		case 7: return s7;
+		case 8: return s8;
+		default: return EMPTY;
+	}
+}
+
+GameBoard::CellState GameBoard::GetCellState( int ix, int iy )
+{
+	int index = iy * 3 + ix;
+	return GetCellState( index );
+}
+
+// --------------------------------------------------------------------------------
+//void GameBoard::SetGameBoardCords()
+//{
 	// set the m_gameBoardArray[3][3] values
 	// Creating first Vertical row
 
@@ -59,4 +99,4 @@ void GameBoard::SetGameBoardCords()
 	//	std::vector<int, int> tempVect = { 249, y };
 	//	m_rowThreeVect.push_back( tempVect );
 	//}
-}
+//}

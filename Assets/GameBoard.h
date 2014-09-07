@@ -10,17 +10,16 @@
 
 class GameBoard
 {
+// =================================================
+// Public Class Constructor
 public:
 	GameBoard();
 	~GameBoard();
 
-private:
 
-	//std::vector<std::vector<int, int>>		m_gameBoardVect;	// The main gameboard vector
-	//std::vector<int, int>					m_rowOneVect;		// The first Vertical row of the gameboard
-	//std::vector<int, int>					m_rowTwoVect;		// Second Vertical Row of the gameboard
-	//std::vector<int, int>					m_rowThreeVect;		// Third Vertical row of the gameboard
-
+// =================================================
+// Public Member Variables
+public:
 	enum CellState
 	{
 		EMPTY,
@@ -28,19 +27,26 @@ private:
 		O,
 	};
 
-	CellState s0;
-	CellState s1;
-	CellState s2;
-	CellState s3;
-	CellState s4;
-	CellState s5;
-	CellState s6;
-	CellState s7;
-	CellState s8;
+	CellState s0;											// Cell 0 state
+	CellState s1;											// Cell 1 state
+	CellState s2;											// Cell 2 state
+	CellState s3;											// Cell 3 State
+	CellState s4;											// Cell 4 state
+	CellState s5;											// Cell 5 State
+	CellState s6;											// Cell 6 State
+	CellState s7;											// Cell 7 State
+	CellState s8;											// Cell 8 State
 
-public: 
-	void SetCellState(int index, CellState state);
-	void SetGameBoardCords();
+// =================================================
+// Public Member Functions
+	void SetCellState( int index, CellState state );		// Set Cell state by flat index
+	void SetCellState( int ix, int iy, CellState state );	// set cell state by row index
+	CellState GetCellState( int index );					// Get Cell state by flat index
+	CellState GetCellState( int ix, int iy );				// Get Cell state by row index
+
+// =================================================
+// Private Member Variables
+private:
 
 };
 
