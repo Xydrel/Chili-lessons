@@ -73,7 +73,7 @@ void D3DGraphics::EndFrame()
 	pDevice->Present( NULL,NULL,NULL,NULL );
 }
 
-void D3DGraphics::DrawLine( float x1, float x2, float  y1, float y2, int r, int g, int bl )
+void D3DGraphics::DrawLine( float x1, float y1, float  x2, float y2, int r, int g, int bl )
 {
 	// Function to draw a pixel line.
 	float dy = y2 - y1;
