@@ -43,4 +43,6 @@ private:
 	D3DGraphics		gfx;
 	KeyboardClient	kbd;
 	GameLogic		m_gameLogic;
+	const int		m_baseX = 250;					// const baseX offset
+	const int		m_baseY	= 150;					// const baseY offset
 };

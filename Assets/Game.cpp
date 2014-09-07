@@ -63,8 +63,8 @@ void Game::ComposeFrame()
 
 
 	// Debugging piece drawing at starting position
-	m_gameLogic.DrawGameBoard( 250, 150 );
-	m_gameLogic.DrawX( 250, 150 );
-	m_gameLogic.DrawO( 350, 250 );
+	m_gameLogic.DrawGameBoard( m_baseX, m_baseY );
+	m_gameLogic.DrawX( m_baseX, m_baseY );
+	m_gameLogic.DrawO( m_baseX + 100, m_baseY + 100 );
 
 }
