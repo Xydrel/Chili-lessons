@@ -2,15 +2,16 @@
 #include "GameLogic.h"
 
 // --------------------------------------------------------------------------------
-GameLogic::GameLogic( D3DGraphics* gfx )
-{
-	m_pGfx				= gfx;
-	m_circlePlayer		= PlayerCircle::PlayerCircle();
-	m_xPlayerInstance	= PlayerX::PlayerX();
-	m_GameBoard			= GameBoard::GameBoard();								// creating the GameBoard
-	m_xplayer			= m_xPlayerInstance.GetPlayerXInstance();	// Creating the playerx instance
-
-}
+GameLogic::GameLogic( D3DGraphics* gfx, KeyboardClient* kbdClient )
+	: m_pGfx( gfx )
+	, m_Keyboardclient( kbdClient )
+	, gameBoard( GameBoard::GameBoard() )
+	, cursorX( 1 )
+	, cursorY( 1 )
+	, m_circlePlayer( PlayerCircle::PlayerCircle() )
+	, m_xPlayerInstance( PlayerX::PlayerX() )
+	, m_xplayer( m_xPlayerInstance.GetPlayerXInstance() )
+{}
 
 // --------------------------------------------------------------------------------
 GameLogic::~GameLogic()
@@ -81,14 +82,58 @@ void GameLogic::DrawGrid(int x, int y)
 	}
 }
 
+// --------------------------------------------------------------------------------
 void GameLogic::DrawCursor( int x, int y )
 {
 	if ( m_pGfx )
 	{
-		m_pGfx->DrawLine( x + 8, y + 8, x + 48, y + 48, 0, 255, 0 );
+		m_pGfx->DrawLine( x + 8, y + 8, x + 48, y + 8, 0, 255, 0 );
 		m_pGfx->DrawLine( x + 8, y + 9, x + 8, y + 48, 0, 255, 0 );
 		m_pGfx->DrawLine( x + 91, y + 91, x + 51, y + 91, 0, 255, 0 );
 		m_pGfx->DrawLine( x + 91, y + 90, x + 91, y + 51, 0, 255, 0 );
+	}
+}
+
+// --------------------------------------------------------------------------------
+void GameLogic::MoveCursorWithKeyboard()
+{
+	if ( m_Keyboardclient )
+	{
+		if ( m_Keyboardclient->RightIsPressed( ) )
+		{
+			cursorX++;
+			if ( cursorX > 2 )
+			{
+				cursorX = 2;
+			}
+		}
+
+		if ( m_Keyboardclient->LeftIsPressed( ) )
+		{
+			cursorX--;
+			if ( cursorX < 0 )
+			{
+				cursorX = 0;
+			}
+		}
+
+		if ( m_Keyboardclient->UpIsPressed( ) )
+		{
+			cursorY--;
+			if ( cursorY < 0 )
+			{
+				cursorY = 0;
+			}
+		}
+
+		if ( m_Keyboardclient->DownIsPressed( ) )
+		{
+			cursorY++;
+			if ( cursorY > 2 )
+			{
+				cursorY = 2;
+			}
+		}
 	}
 }
 

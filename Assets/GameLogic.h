@@ -1,5 +1,6 @@
 
 #include "D3DGraphics.h"
+#include "Keyboard.h"
 #include "GameBoard.h"
 #include "PlayerCircle.h"
 #include "PlayerX.h"
@@ -13,7 +14,7 @@ class GameLogic
 public:
 // =================================================
 // Public Class Constructor
-	GameLogic( D3DGraphics* gfx );
+	GameLogic( D3DGraphics* gfx, KeyboardClient* kbdClient );
 	~GameLogic();
 
 
@@ -23,6 +24,7 @@ public:
 	void DrawX( int x, int y );
 	void DrawO( int x, int y );
 	void DrawCursor( int x, int y );
+	void MoveCursorWithKeyboard();
 
 private:
 // =================================================
@@ -35,16 +37,17 @@ private:
 // =================================================
 // Private Member Variables
 	D3DGraphics*	m_pGfx;					// Pointer to gfx object to draw to screen
+	KeyboardClient*	m_Keyboardclient;		// KeyboardClient to be used by the players
 	PlayerCircle	m_circlePlayer;			// Circle player object instance
 	PlayerX*		m_xplayer;				// X player object instance pointer
 	PlayerX			m_xPlayerInstance;
-	int				m_iCursorX;				// Cursor X position on the board
-	int				m_iCursorY;				// cursor Y position on the board
 
 public:
 	// =================================================
 	// Public Member Variables
-	GameBoard			m_GameBoard;			// Game board object instance
+	GameBoard		gameBoard;				// Game board object instance
+	int				cursorX;				// Cursor X position on the board
+	int				cursorY;				// cursor Y position on the board
 
 };
 
