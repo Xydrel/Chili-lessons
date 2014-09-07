@@ -3,6 +3,8 @@
 
 class PlayerCircle : GamePlayer
 {
+// ================================================
+// Public Member Constructor
 public:
 	PlayerCircle();
 	~PlayerCircle();

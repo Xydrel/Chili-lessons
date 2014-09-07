@@ -21,6 +21,7 @@
 
 #include "D3DGraphics.h"
 
+// --------------------------------------------------------------------------------
 D3DGraphics::D3DGraphics( HWND hWnd )
 {
 	pDirect3D = Direct3DCreate9( D3D_SDK_VERSION );
@@ -37,6 +38,7 @@ D3DGraphics::D3DGraphics( HWND hWnd )
 		D3DCREATE_HARDWARE_VERTEXPROCESSING | D3DCREATE_PUREDEVICE,&d3dpp,&pDevice );
 }
 
+// --------------------------------------------------------------------------------
 D3DGraphics::~D3DGraphics()
 {
 	if( pDevice )
@@ -51,6 +53,7 @@ D3DGraphics::~D3DGraphics()
 	}
 }
 
+// --------------------------------------------------------------------------------
 void D3DGraphics::PutPixel( int x,int y,int r,int g,int b )
 {
 	IDirect3DSurface9* pBackBuffer = NULL;
@@ -63,16 +66,19 @@ void D3DGraphics::PutPixel( int x,int y,int r,int g,int b )
 	pBackBuffer->Release();
 }
 
+// --------------------------------------------------------------------------------
 void D3DGraphics::BeginFrame()
 {
 	pDevice->Clear( 0,NULL,D3DCLEAR_TARGET,D3DCOLOR_XRGB(0,0,0),0.0f,0 );
 }
 
+// --------------------------------------------------------------------------------
 void D3DGraphics::EndFrame()
 {
 	pDevice->Present( NULL,NULL,NULL,NULL );
 }
 
+// --------------------------------------------------------------------------------
 void D3DGraphics::DrawLine( float x1, float y1, float  x2, float y2, int r, int g, int bl )
 {
 	// Function to draw a pixel line.
@@ -119,6 +125,7 @@ void D3DGraphics::DrawLine( float x1, float y1, float  x2, float y2, int r, int 
 	}
 }
 
+// --------------------------------------------------------------------------------
 void D3DGraphics::DrawCircle( float cx, float cy, float rad, int r, int g, int b )
 {
 	// Needs center x and y location on a quadratic plane.

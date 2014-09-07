@@ -26,26 +26,21 @@
 
 class Game
 {
+// ================================================
+// Public Member Constructor
 public:
 	Game( HWND hWnd,const KeyboardServer& kServer );
 	void Go();
+
+// ================================================
+// Private Member Functions
 private:
 	void ComposeFrame();
-	/********************************/
-	/*  User Functions              */
 
-	// TODO: User functions go here
-
-	/********************************/
+// ================================================
+// Private Member Variables
 private:
 	D3DGraphics		gfx;
 	KeyboardClient	kbd;
-	/********************************/
-	/*  User Variables              */
-
-	// TODO: User variables go here
 	GameLogic		m_gameLogic;
-
-
-	/********************************/
 };
