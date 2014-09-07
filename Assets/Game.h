@@ -40,9 +40,10 @@ private:
 // ================================================
 // Private Member Variables
 private:
-	D3DGraphics		gfx;
-	KeyboardClient	kbd;
-	GameLogic		m_gameLogic;
-	const int		m_baseX = 250;					// const baseX offset
-	const int		m_baseY	= 150;					// const baseY offset
+	D3DGraphics			gfx;
+	KeyboardClient		kbd;
+	GameLogic			m_gameLogic;
+	const int			m_iBaseX = 250;					// const int baseX offset
+	const int			m_iBaseY = 150;					// const int baseY offset
+	const int			m_iSquareSize = 100;			// const int square size
 };
