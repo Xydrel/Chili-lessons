@@ -40,7 +40,7 @@ void Game::ComposeFrame()
 {
 	//if ( m_gameLogic != 0x00 )
 	//{
-		m_gameLogic.MoveCursorWithKeyboard();
+		m_gameLogic.MovementInput();
 
 		m_gameLogic.DrawGameBoard( m_iBaseX, m_iBaseY );
 		m_gameLogic.DrawCursor( m_iBaseX + m_gameLogic.cursorX * m_iSquareSize, 
