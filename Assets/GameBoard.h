@@ -13,9 +13,14 @@ class GameBoard
 // =================================================
 // Public Class Constructor
 public:
-	GameBoard();
+	GameBoard();											// constructor assignes GameBoard* gb
 	~GameBoard();
 
+
+// =================================================
+// Protected Member Variables
+protected:
+	GameBoard* gb;
 
 // =================================================
 // Public Member Variables
