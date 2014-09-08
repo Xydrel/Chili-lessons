@@ -9,6 +9,8 @@ GameBoard::GameBoard()
 		SetCellState( index, EMPTY );
 	}
 
+	//gb = new GameBoard();
+
 	// Temp Code to draw player pieces
 	//SetCellState( 0, 0, X );
 	//SetCellState( 1, 1, O );
@@ -17,7 +19,11 @@ GameBoard::GameBoard()
 // --------------------------------------------------------------------------------
 GameBoard::~GameBoard()
 {
-
+	//if ( gb )
+	//{
+	//	delete gb;
+	//	gb = NULL;
+	//}
 }
 
 // --------------------------------------------------------------------------------
