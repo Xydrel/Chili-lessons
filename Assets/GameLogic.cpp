@@ -5,12 +5,11 @@
 GameLogic::GameLogic( D3DGraphics* gfx, KeyboardClient* kbdClient )
 	: m_pGfx( gfx )
 	, m_Keyboardclient( kbdClient )
-	, gameBoard( GameBoard::GameBoard() )
+	, gameBoard( GameBoard() )
 	, cursorX( 1 )
 	, cursorY( 1 )
-	, m_circlePlayer( PlayerCircle::PlayerCircle() )
-	, m_xPlayerInstance( PlayerX::PlayerX() )
-	, m_xplayer( m_xPlayerInstance.GetPlayerXInstance() )
+	, m_circlePlayer()
+	, m_xplayer()
 	, wasKeyPressedLastFrame( false )
 {}
 
@@ -24,8 +23,19 @@ GameLogic::~GameLogic()
 	}
 	if ( m_xplayer )
 	{
+		m_xplayer->~PlayerX();
 		m_xplayer = NULL;
 	}
+	if ( m_circlePlayer )
+	{
+		m_circlePlayer->~PlayerCircle();
+		m_circlePlayer = NULL;
+	}
+	//if ( gameBoard )
+	//{
+	//	gameBoard->~GameBoard();
+	//	gameBoard = NULL;
+	//}
 }
 
 // --------------------------------------------------------------------------------
@@ -148,6 +158,12 @@ void GameLogic::MovementInput()
 					m_Keyboardclient->DownIsPressed()) )
 		{
 			wasKeyPressedLastFrame = false;
+		}
+
+		if ( m_Keyboardclient->EnterIsPressed())
+		{
+			// TODO: remove - debugging code
+			// set cell state to (cusorX, cursorY, X)
 		}
 	}
 }

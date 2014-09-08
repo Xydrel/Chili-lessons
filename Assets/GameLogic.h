@@ -38,9 +38,8 @@ private:
 // Private Member Variables
 	D3DGraphics*	m_pGfx;					// Pointer to gfx object to draw to screen
 	KeyboardClient*	m_Keyboardclient;		// KeyboardClient to be used by the players
-	PlayerCircle	m_circlePlayer;			// Circle player object instance
+	PlayerCircle*	m_circlePlayer;			// Circle player object instance
 	PlayerX*		m_xplayer;				// X player object instance pointer
-	PlayerX			m_xPlayerInstance;
 
 public:
 	// =================================================

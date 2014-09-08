@@ -8,6 +8,11 @@ class PlayerCircle : GamePlayer
 public:
 	PlayerCircle();
 	~PlayerCircle();
+	
+// ================================================
+// Protected Member Variables
+protected:
+	PlayerCircle* plyr;
 
 private:
 // ================================================
