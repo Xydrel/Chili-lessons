@@ -10,8 +10,8 @@ GameBoard::GameBoard()
 	}
 
 	// Temp Code to draw player pieces
-	SetCellState( 0, 0, X );
-	SetCellState( 1, 1, O );
+	//SetCellState( 0, 0, X );
+	//SetCellState( 1, 1, O );
 }
 
 // --------------------------------------------------------------------------------
