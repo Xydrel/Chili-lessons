@@ -24,7 +24,7 @@ public:
 	void DrawX( int x, int y );
 	void DrawO( int x, int y );
 	void DrawCursor( int x, int y );
-	void MoveCursorWithKeyboard();
+	void MovementInput();
 
 private:
 // =================================================
@@ -48,6 +48,7 @@ public:
 	GameBoard		gameBoard;				// Game board object instance
 	int				cursorX;				// Cursor X position on the board
 	int				cursorY;				// cursor Y position on the board
+	bool			wasKeyPressedLastFrame;	// holds the state of if the keyboard key was previously pressed
 
 };
 
