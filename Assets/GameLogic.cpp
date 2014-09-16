@@ -11,6 +11,7 @@ GameLogic::GameLogic( D3DGraphics* gfx, KeyboardClient* kbdClient )
 	, m_circlePlayer()
 	, m_xplayer()
 	, wasKeyPressedLastFrame( false )
+	, player( gameBoard.playerA )
 {}
 
 // --------------------------------------------------------------------------------
@@ -106,6 +107,116 @@ void GameLogic::DrawCursor( int x, int y )
 }
 
 // --------------------------------------------------------------------------------
+void GameLogic::EndTurn()
+{
+	if ( gameBoard.curPlayer == gameBoard.playerA )
+	{
+		gameBoard.curPlayer = gameBoard.playerB;
+	}
+	else if ( gameBoard.curPlayer == gameBoard.playerB )
+	{
+		gameBoard.curPlayer = gameBoard.playerA;
+	}
+}
+
+// --------------------------------------------------------------------------------
+void GameLogic::DoUserInput()
+{
+
+}
+
+// --------------------------------------------------------------------------------
+void GameLogic::GameLoop()
+{
+	MovementInput();
+}
+
+// --------------------------------------------------------------------------------
+void GameLogic::CheckPiecesOnBoard()
+{
+	bool XisWinner = false;
+	bool OisWinner = false;
+
+	if ( gameBoard.GetCellState( 0 ) == gameBoard.X &&
+		 gameBoard.GetCellState( 1 ) == gameBoard.X && 
+		 gameBoard.GetCellState( 2 ) == gameBoard.X ||
+		 gameBoard.GetCellState( 3 ) == gameBoard.X &&
+		 gameBoard.GetCellState( 4 ) == gameBoard.X &&
+		 gameBoard.GetCellState( 5 ) == gameBoard.X ||
+		 gameBoard.GetCellState( 6 ) == gameBoard.X &&
+		 gameBoard.GetCellState( 7 ) == gameBoard.X &&
+		 gameBoard.GetCellState( 8 ) == gameBoard.X ||
+		 gameBoard.GetCellState( 0 ) == gameBoard.X &&
+		 gameBoard.GetCellState( 3 ) == gameBoard.X &&
+		 gameBoard.GetCellState( 6 ) == gameBoard.X ||
+		 gameBoard.GetCellState( 1 ) == gameBoard.X &&
+		 gameBoard.GetCellState( 4 ) == gameBoard.X &&
+		 gameBoard.GetCellState( 7 ) == gameBoard.X ||
+		 gameBoard.GetCellState( 2 ) == gameBoard.X &&
+		 gameBoard.GetCellState( 5 ) == gameBoard.X &&
+		 gameBoard.GetCellState( 8 ) == gameBoard.X ||
+		 gameBoard.GetCellState( 0 ) == gameBoard.X &&
+		 gameBoard.GetCellState( 4 ) == gameBoard.X &&
+		 gameBoard.GetCellState( 8 ) == gameBoard.X ||
+		 gameBoard.GetCellState( 2 ) == gameBoard.X &&
+		 gameBoard.GetCellState( 4 ) == gameBoard.X &&
+		 gameBoard.GetCellState( 6 ) == gameBoard.X )
+	{
+		// set playerA to winner
+		printf( "X is the winner" );
+		XisWinner = true;
+	}
+	else if ( gameBoard.GetCellState( 0 ) == gameBoard.O &&
+			  gameBoard.GetCellState( 1 ) == gameBoard.O &&
+			  gameBoard.GetCellState( 2 ) == gameBoard.O ||
+			  gameBoard.GetCellState( 3 ) == gameBoard.O &&
+			  gameBoard.GetCellState( 4 ) == gameBoard.O &&
+			  gameBoard.GetCellState( 5 ) == gameBoard.O ||
+			  gameBoard.GetCellState( 6 ) == gameBoard.O &&
+			  gameBoard.GetCellState( 7 ) == gameBoard.O &&
+			  gameBoard.GetCellState( 8 ) == gameBoard.O ||
+			  gameBoard.GetCellState( 0 ) == gameBoard.O &&
+			  gameBoard.GetCellState( 3 ) == gameBoard.O &&
+			  gameBoard.GetCellState( 6 ) == gameBoard.O ||
+			  gameBoard.GetCellState( 1 ) == gameBoard.O &&
+			  gameBoard.GetCellState( 4 ) == gameBoard.O &&
+			  gameBoard.GetCellState( 7 ) == gameBoard.O ||
+			  gameBoard.GetCellState( 2 ) == gameBoard.O &&
+			  gameBoard.GetCellState( 5 ) == gameBoard.O &&
+			  gameBoard.GetCellState( 8 ) == gameBoard.O ||
+			  gameBoard.GetCellState( 0 ) == gameBoard.O &&
+			  gameBoard.GetCellState( 4 ) == gameBoard.O &&
+			  gameBoard.GetCellState( 8 ) == gameBoard.O ||
+			  gameBoard.GetCellState( 2 ) == gameBoard.O &&
+			  gameBoard.GetCellState( 4 ) == gameBoard.O &&
+			  gameBoard.GetCellState( 6 ) == gameBoard.O )
+	{
+		// set playerB to winner
+		printf( "O is the winner" );
+		OisWinner = true;
+	}
+	else if (!XisWinner && !OisWinner)
+	{
+		bool wasEmptyCell = false;
+		for ( int i = 0; i <= 8; ++i )
+		{
+			if ( gameBoard.GetCellState( i ) == gameBoard.EMPTY )
+			{
+				wasEmptyCell = true;
+			}
+			if ( wasEmptyCell )
+			{
+				break;
+			}
+			else
+			{
+				printf( "The Game was a Tie!" );
+			}
+		}
+	}
+}
+
+// --------------------------------------------------------------------------------
 void GameLogic::MovementInput()
 {
 	if ( m_Keyboardclient )
@@ -152,7 +263,7 @@ void GameLogic::MovementInput()
 				}
 			}
 		}
-		else if ( !(m_Keyboardclient->RightIsPressed()||
+		else if ( !(m_Keyboardclient->RightIsPressed() ||
 					m_Keyboardclient->LeftIsPressed() ||
 					m_Keyboardclient->UpIsPressed() ||
 					m_Keyboardclient->DownIsPressed()) )
@@ -160,12 +271,22 @@ void GameLogic::MovementInput()
 			wasKeyPressedLastFrame = false;
 		}
 
-		if ( m_Keyboardclient->EnterIsPressed())
+		if ( m_Keyboardclient->EnterIsPressed() &&
+			 gameBoard.GetCellState( cursorX, cursorY ) == GameBoard::EMPTY)
 		{
 			// TODO: remove - debugging code
-			// set cell state to (cusorX, cursorY, X)
+
+			/* this seems like the place that would work for adding the 
+			 * player logic whic determins what players is conttrolling the cursor
+			 * we can determin what player is controling the cursor then when the hit enter
+			 * it places the piece representing the player.
+			 */
+			gameBoard.SetCellState( cursorX, cursorY, gameBoard.curPlayer );
+			CheckPiecesOnBoard();
+
+			GameLogic::EndTurn();
+			
 		}
 	}
 }
-
 // --------------------------------------------------------------------------------
