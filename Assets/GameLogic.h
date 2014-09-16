@@ -24,7 +24,11 @@ public:
 	void DrawX( int x, int y );
 	void DrawO( int x, int y );
 	void DrawCursor( int x, int y );
-	void MovementInput();
+
+	void DoUserInput();
+	void EndTurn();
+	void GameLoop();
+
 
 private:
 // =================================================
@@ -33,6 +37,9 @@ private:
 	void DrawPlayerPieceX( float x, float y, int r, int g, int b );
 	void DrawGrid(int x, int y);
 
+	void MovementInput();
+	void CheckPiecesOnBoard();
+
 private:
 // =================================================
 // Private Member Variables
@@ -40,11 +47,13 @@ private:
 	KeyboardClient*	m_Keyboardclient;		// KeyboardClient to be used by the players
 	PlayerCircle*	m_circlePlayer;			// Circle player object instance
 	PlayerX*		m_xplayer;				// X player object instance pointer
+	
 
 public:
 	// =================================================
 	// Public Member Variables
 	GameBoard		gameBoard;				// Game board object instance
+	GameBoard::CellState player;
 	int				cursorX;				// Cursor X position on the board
 	int				cursorY;				// cursor Y position on the board
 	bool			wasKeyPressedLastFrame;	// holds the state of if the keyboard key was previously pressed
