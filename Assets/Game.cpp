@@ -40,7 +40,7 @@ void Game::ComposeFrame()
 {
 	//if ( m_gameLogic != 0x00 )
 	//{
-		m_gameLogic.MovementInput();
+	m_gameLogic.GameLoop();
 
 		m_gameLogic.DrawGameBoard( m_iBaseX, m_iBaseY );
 		m_gameLogic.DrawCursor( m_iBaseX + m_gameLogic.cursorX * m_iSquareSize, 
@@ -49,22 +49,16 @@ void Game::ComposeFrame()
 		{
 			for ( int ix = 0; ix < 3; ix++ )
 			{
-				if ( m_gameLogic.gameBoard.GetCellState(ix, iy) == GameBoard::X )
+				if ( m_gameLogic.gameBoard.GetCellState( ix, iy ) == m_gameLogic.gameBoard.X )
 				{
 					m_gameLogic.DrawX( m_iBaseX + ix * m_iSquareSize, m_iBaseY + iy * m_iSquareSize );
 				}
-				else if ( m_gameLogic.gameBoard.GetCellState( ix, iy ) == GameBoard::O )
+				else if ( m_gameLogic.gameBoard.GetCellState( ix, iy ) == m_gameLogic.gameBoard.O )
 				{
 					m_gameLogic.DrawO( m_iBaseX + ix * m_iSquareSize, m_iBaseY + iy * m_iSquareSize );
 				}
 			}
 		}
 
-
-		// Debugging piece drawing at starting position
-		/*m_gameLogic.DrawGameBoard( m_baseX, m_baseY );*/
-		//m_gameLogic.DrawX( m_baseX, m_baseY );
-		//m_gameLogic.DrawO( m_baseX + 100, m_baseY + 100 );
 	//}
-
 }
