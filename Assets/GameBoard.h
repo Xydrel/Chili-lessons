@@ -42,6 +42,12 @@ public:
 	CellState s7;											// Cell 7 State
 	CellState s8;											// Cell 8 State
 
+	CellState playerA = X;
+	CellState playerB = O;
+
+	// debug set player to X
+	CellState curPlayer;
+
 // =================================================
 // Public Member Functions
 	void SetCellState( int index, CellState state );		// Set Cell state by flat index
