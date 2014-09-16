@@ -136,6 +136,7 @@ void GameLogic::CheckPiecesOnBoard()
 {
 	bool XisWinner = false;
 	bool OisWinner = false;
+	bool isTieGame = false;
 
 	if ( gameBoard.GetCellState( 0 ) == gameBoard.X &&
 		 gameBoard.GetCellState( 1 ) == gameBoard.X && 
@@ -198,20 +199,21 @@ void GameLogic::CheckPiecesOnBoard()
 	else if (!XisWinner && !OisWinner)
 	{
 		bool wasEmptyCell = false;
+		int counter = 0;
+
 		for ( int i = 0; i <= 8; ++i )
 		{
+			counter++;
 			if ( gameBoard.GetCellState( i ) == gameBoard.EMPTY )
 			{
 				wasEmptyCell = true;
-			}
-			if ( wasEmptyCell )
-			{
 				break;
 			}
-			else
-			{
-				printf( "The Game was a Tie!" );
-			}
+		}
+
+		if ( !wasEmptyCell && counter > 8 )
+		{
+			printf( "The Game was a Tie!" );
 		}
 	}
 }
