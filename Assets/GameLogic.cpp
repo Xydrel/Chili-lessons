@@ -135,6 +135,8 @@ void GameLogic::GameLoop()
 // --------------------------------------------------------------------------------
 GameLogic::GameWinner GameLogic::CheckPiecesOnBoard()
 {
+	bool XisWinner = false;
+	bool OisWinner = false;
 	if ( gameBoard.GetCellState( 0 ) == gameBoard.X &&
 		 gameBoard.GetCellState( 1 ) == gameBoard.X && 
 		 gameBoard.GetCellState( 2 ) == gameBoard.X ||
@@ -161,6 +163,7 @@ GameLogic::GameWinner GameLogic::CheckPiecesOnBoard()
 		 gameBoard.GetCellState( 6 ) == gameBoard.X )
 	{
 		// set playerA to winner
+		XisWinner = true;
 		return WINNER_X;
 	}
 	else if ( gameBoard.GetCellState( 0 ) == gameBoard.O &&
@@ -189,6 +192,7 @@ GameLogic::GameWinner GameLogic::CheckPiecesOnBoard()
 			  gameBoard.GetCellState( 6 ) == gameBoard.O )
 	{
 		// set playerB to winner
+		OisWinner = true;
 		return WINNER_O;
 	}
 	else if (!XisWinner && !OisWinner)
