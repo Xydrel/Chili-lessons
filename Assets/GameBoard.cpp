@@ -76,33 +76,4 @@ GameBoard::CellState GameBoard::GetCellState( int ix, int iy )
 	return GetCellState( index );
 }
 
-// --------------------------------------------------------------------------------
-//void GameBoard::SetGameBoardCords()
-//{
-	// set the m_gameBoardArray[3][3] values
-	// Creating first Vertical row
 
-	// NOT WORKING YET
-
-	//std::vector<int> rowYcenter = { 49, 149, 249 };
-	//for ( int i = 0; i <= rowYcenter.size( ); ++i )
-	//{
-	//	int y = rowYcenter[i];
-	//	std::vector<int, int> tempVect = { 49, y };
-	//	m_rowOneVect.push_back( tempVect );
-	//}
-
-	//for ( int i = 0; i <= rowYcenter.size( ); ++i )
-	//{
-	//	int y = rowYcenter[i];
-	//	std::vector<int, int> tempVect = { 149, y };
-	//	m_rowTwoVect.push_back( tempVect );
-	//}
-
-	//for ( int i = 0; i <= rowYcenter.size( ); ++i )
-	//{
-	//	int y = rowYcenter[i];
-	//	std::vector<int, int> tempVect = { 249, y };
-	//	m_rowThreeVect.push_back( tempVect );
-	//}
-//}
