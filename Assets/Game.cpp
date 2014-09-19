@@ -38,27 +38,24 @@ void Game::Go()
 // --------------------------------------------------------------------------------
 void Game::ComposeFrame()
 {
-	//if ( m_gameLogic != 0x00 )
-	//{
+
 	m_gameLogic.GameLoop();
 
-		m_gameLogic.DrawGameBoard( m_iBaseX, m_iBaseY );
-		m_gameLogic.DrawCursor( m_iBaseX + m_gameLogic.cursorX * m_iSquareSize, 
-								m_iBaseY + m_gameLogic.cursorY * m_iSquareSize );
-		for ( int iy = 0; iy < 3; iy++ )
+	m_gameLogic.DrawGameBoard( m_iBaseX, m_iBaseY );
+	m_gameLogic.DrawCursor( m_iBaseX + m_gameLogic.cursorX * m_iSquareSize, 
+							m_iBaseY + m_gameLogic.cursorY * m_iSquareSize );
+	for ( int iy = 0; iy < 3; iy++ )
+	{
+		for ( int ix = 0; ix < 3; ix++ )
 		{
-			for ( int ix = 0; ix < 3; ix++ )
+			if ( m_gameLogic.gameBoard.GetCellState( ix, iy ) == m_gameLogic.gameBoard.X )
 			{
-				if ( m_gameLogic.gameBoard.GetCellState( ix, iy ) == m_gameLogic.gameBoard.X )
-				{
-					m_gameLogic.DrawX( m_iBaseX + ix * m_iSquareSize, m_iBaseY + iy * m_iSquareSize );
-				}
-				else if ( m_gameLogic.gameBoard.GetCellState( ix, iy ) == m_gameLogic.gameBoard.O )
-				{
-					m_gameLogic.DrawO( m_iBaseX + ix * m_iSquareSize, m_iBaseY + iy * m_iSquareSize );
-				}
+				m_gameLogic.DrawX( m_iBaseX + ix * m_iSquareSize, m_iBaseY + iy * m_iSquareSize );
+			}
+			else if ( m_gameLogic.gameBoard.GetCellState( ix, iy ) == m_gameLogic.gameBoard.O )
+			{
+				m_gameLogic.DrawO( m_iBaseX + ix * m_iSquareSize, m_iBaseY + iy * m_iSquareSize );
 			}
 		}
-
-	//}
+	}
 }
