@@ -164,7 +164,7 @@ void D3DGraphics::DrawCircle( float cx, float cy, float rad, int r, int g, int b
 	//}
 }
 
-void D3DGraphics::DrawXWins( int x, int y, int r, int g, int b )
+void D3DGraphics::DrawXWins( int x, int y )
 {
 	PutPixel( 0 + x,0 + y,255,0,0 );
 	PutPixel( 1 + x,0 + y,255,0,0 );
@@ -328,7 +328,7 @@ void D3DGraphics::DrawXWins( int x, int y, int r, int g, int b )
 
 }
 
-void D3DGraphics::DrawOWins( int x, int y, int r, int g, int b )
+void D3DGraphics::DrawOWins( int x, int y )
 {
 	PutPixel( 1 + x,0 + y,0,0,255 );
 	PutPixel( 2 + x,0 + y,0,0,255 );
@@ -498,7 +498,7 @@ void D3DGraphics::DrawOWins( int x, int y, int r, int g, int b )
 
 }
 
-void D3DGraphics::DrawToilet( int x, int y, int r, int g, int b )
+void D3DGraphics::DrawToilet( int x, int y )
 {
 	PutPixel( 49 + x,0 + y,0,146,14 );
 	PutPixel( 50 + x,0 + y,0,146,14 );
@@ -2193,7 +2193,7 @@ void D3DGraphics::DrawToilet( int x, int y, int r, int g, int b )
 
 }
 
-void D3DGraphics::DrawTieGame( int x, int y,int r, int g, int b )
+void D3DGraphics::DrawTieGame( int x, int y )
 {
 	PutPixel( 12 + x,0 + y,0,146,14 );
 	PutPixel( 13 + x,0 + y,0,146,14 );

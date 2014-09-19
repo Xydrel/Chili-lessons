@@ -38,10 +38,10 @@ public:
 	void DrawLine( float x1, float x2, float y1, float y2, int r, int g, int bl );
 	void DrawCircle( float cx, float cy, float rad, int r, int g, int b );
 
-	void DrawXWins( int x, int y, int r, int g, int b);
-	void DrawOWins(int x, int y, int r, int g, int b);
-	void DrawToilet(int x, int y, int r, int g, int b);
-	void DrawTieGame(int x, int y,int r, int g, int b);
+	void DrawXWins( int x, int y);
+	void DrawOWins(int x, int y);
+	void DrawToilet(int x, int y);
+	void DrawTieGame(int x, int y);
 
 	void DrawPlayBoard();
 
