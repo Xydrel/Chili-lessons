@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;res;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Behaviour">
+      <UniqueIdentifier>{09d0faa5-8e85-4a5a-87f5-1a65f6b52cf7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Behaviour">
+      <UniqueIdentifier>{e5961ab7-fa5f-4274-8c42-4f703239ede8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Assets\D3DGraphics.cpp">
@@ -44,6 +50,9 @@
     </ClCompile>
     <ClCompile Include="..\Assets\GameBoard.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Assets\Behaviour\AI.cpp">
+      <Filter>Source Files\Behaviour</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -79,6 +88,9 @@
     </ClInclude>
     <ClInclude Include="..\Assets\GamePlayer.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Assets\Behaviour\AI.h">
+      <Filter>Header Files\Behaviour</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

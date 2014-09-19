@@ -151,6 +151,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\Assets\Behaviour\AI.cpp" />
     <ClCompile Include="..\Assets\D3DGraphics.cpp" />
     <ClCompile Include="..\Assets\Game.cpp" />
     <ClCompile Include="..\Assets\GameBoard.cpp" />
@@ -163,6 +164,7 @@
     <ClCompile Include="..\Assets\Windows.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Assets\Behaviour\AI.h" />
     <ClInclude Include="..\Assets\D3DGraphics.h" />
     <ClInclude Include="..\Assets\Game.h" />
     <ClInclude Include="..\Assets\GameBoard.h" />
