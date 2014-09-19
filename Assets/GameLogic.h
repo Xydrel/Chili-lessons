@@ -27,7 +27,7 @@ private:
 	PlayerCircle*	m_circlePlayer;			// Circle player object instance
 	PlayerX*		m_xplayer;				// X player object instance pointer
 	bool			m_gameOver;
-	AI*				m_gameAI;
+	//AI*				m_gameAI;
 
 	enum GameWinner
 	{
