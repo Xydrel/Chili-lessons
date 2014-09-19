@@ -12,6 +12,7 @@ GameLogic::GameLogic( D3DGraphics* gfx, KeyboardClient* kbdClient )
 	, m_xplayer()
 	, wasKeyPressedLastFrame( false )
 	, player( gameBoard.playerA )
+	, m_gameOver( false )
 {}
 
 // --------------------------------------------------------------------------------
@@ -109,13 +110,13 @@ void GameLogic::DrawCursor( int x, int y )
 // --------------------------------------------------------------------------------
 void GameLogic::EndTurn()
 {
-	if ( gameBoard.curPlayer == gameBoard.playerA )
+	if ( player == gameBoard.playerA )
 	{
-		gameBoard.curPlayer = gameBoard.playerB;
+		player = gameBoard.playerB;
 	}
-	else if ( gameBoard.curPlayer == gameBoard.playerB )
+	else if ( player == gameBoard.playerB )
 	{
-		gameBoard.curPlayer = gameBoard.playerA;
+		player = gameBoard.playerA;
 	}
 }
 
@@ -132,12 +133,8 @@ void GameLogic::GameLoop()
 }
 
 // --------------------------------------------------------------------------------
-void GameLogic::CheckPiecesOnBoard()
+GameLogic::GameWinner GameLogic::CheckPiecesOnBoard()
 {
-	bool XisWinner = false;
-	bool OisWinner = false;
-	bool isTieGame = false;
-
 	if ( gameBoard.GetCellState( 0 ) == gameBoard.X &&
 		 gameBoard.GetCellState( 1 ) == gameBoard.X && 
 		 gameBoard.GetCellState( 2 ) == gameBoard.X ||
@@ -164,8 +161,7 @@ void GameLogic::CheckPiecesOnBoard()
 		 gameBoard.GetCellState( 6 ) == gameBoard.X )
 	{
 		// set playerA to winner
-		printf( "X is the winner" );
-		XisWinner = true;
+		return WINNER_X;
 	}
 	else if ( gameBoard.GetCellState( 0 ) == gameBoard.O &&
 			  gameBoard.GetCellState( 1 ) == gameBoard.O &&
@@ -193,8 +189,7 @@ void GameLogic::CheckPiecesOnBoard()
 			  gameBoard.GetCellState( 6 ) == gameBoard.O )
 	{
 		// set playerB to winner
-		printf( "O is the winner" );
-		OisWinner = true;
+		return WINNER_O;
 	}
 	else if (!XisWinner && !OisWinner)
 	{
@@ -213,7 +208,30 @@ void GameLogic::CheckPiecesOnBoard()
 
 		if ( !wasEmptyCell && counter > 8 )
 		{
-			printf( "The Game was a Tie!" );
+			return TIE;
+		}
+	}
+	return NONE;
+}
+
+// --------------------------------------------------------------------------------
+void GameLogic::DrawGameResults( int x, int y )
+{
+	if ( m_pGfx )
+	{
+		m_pGfx->DrawToilet( x, y );
+
+		if ( m_winner == WINNER_X )
+		{
+			m_pGfx->DrawXWins(x + 18, y + 60);
+		}
+		else if ( m_winner == WINNER_O )
+		{
+			m_pGfx->DrawOWins( x + 18, y + 60 );
+		}
+		else
+		{
+			m_pGfx->DrawTieGame( x + 18, y + 60 );
 		}
 	}
 }
@@ -223,71 +241,79 @@ void GameLogic::MovementInput()
 {
 	if ( m_Keyboardclient )
 	{
-		if ( !wasKeyPressedLastFrame )
+		if ( m_gameOver )
 		{
-			if ( m_Keyboardclient->RightIsPressed( ) )
-			{
-				wasKeyPressedLastFrame = true;
-				cursorX++;
-				if ( cursorX > 2 )
-				{
-					cursorX = 2;
-				}
-			}
-
-			if ( m_Keyboardclient->LeftIsPressed( ) )
-			{
-				wasKeyPressedLastFrame = true;
-				cursorX--;
-				if ( cursorX < 0 )
-				{
-					cursorX = 0;
-				}
-			}
-
-			if ( m_Keyboardclient->UpIsPressed( ) )
-			{
-				wasKeyPressedLastFrame = true;
-				cursorY--;
-				if ( cursorY < 0 )
-				{
-					cursorY = 0;
-				}
-			}
-
-			if ( m_Keyboardclient->DownIsPressed( ) )
-			{
-				wasKeyPressedLastFrame = true;
-				cursorY++;
-				if ( cursorY > 2 )
-				{
-					cursorY = 2;
-				}
-			}
+			DrawGameResults( 355, 500 );
 		}
-		else if ( !(m_Keyboardclient->RightIsPressed() ||
-					m_Keyboardclient->LeftIsPressed() ||
-					m_Keyboardclient->UpIsPressed() ||
-					m_Keyboardclient->DownIsPressed()) )
+		else
 		{
-			wasKeyPressedLastFrame = false;
-		}
+			if ( !wasKeyPressedLastFrame )
+			{
+				if ( m_Keyboardclient->RightIsPressed( ) )
+				{
+					wasKeyPressedLastFrame = true;
+					cursorX++;
+					if ( cursorX > 2 )
+					{
+						cursorX = 2;
+					}
+				}
 
-		if ( m_Keyboardclient->EnterIsPressed() &&
-			 gameBoard.GetCellState( cursorX, cursorY ) == GameBoard::EMPTY)
-		{
-			// TODO: remove - debugging code
+				if ( m_Keyboardclient->LeftIsPressed( ) )
+				{
+					wasKeyPressedLastFrame = true;
+					cursorX--;
+					if ( cursorX < 0 )
+					{
+						cursorX = 0;
+					}
+				}
 
-			/* this seems like the place that would work for adding the 
-			 * player logic whic determins what players is conttrolling the cursor
-			 * we can determin what player is controling the cursor then when the hit enter
-			 * it places the piece representing the player.
-			 */
-			gameBoard.SetCellState( cursorX, cursorY, gameBoard.curPlayer );
-			CheckPiecesOnBoard();
+				if ( m_Keyboardclient->UpIsPressed( ) )
+				{
+					wasKeyPressedLastFrame = true;
+					cursorY--;
+					if ( cursorY < 0 )
+					{
+						cursorY = 0;
+					}
+				}
 
-			GameLogic::EndTurn();
-			
+				if ( m_Keyboardclient->DownIsPressed( ) )
+				{
+					wasKeyPressedLastFrame = true;
+					cursorY++;
+					if ( cursorY > 2 )
+					{
+						cursorY = 2;
+					}
+				}
+			}
+			else if ( !(m_Keyboardclient->RightIsPressed() ||
+						m_Keyboardclient->LeftIsPressed() ||
+						m_Keyboardclient->UpIsPressed() ||
+						m_Keyboardclient->DownIsPressed()) )
+			{
+				wasKeyPressedLastFrame = false;
+			}
+
+			if ( m_Keyboardclient->EnterIsPressed() &&
+				 gameBoard.GetCellState( cursorX, cursorY ) == GameBoard::EMPTY)
+			{
+
+				gameBoard.SetCellState( cursorX, cursorY, player );
+
+				m_winner = CheckPiecesOnBoard();
+
+				if ( m_winner == WINNER_X ||
+					m_winner == WINNER_O ||
+					m_winner == TIE )
+				{
+					m_gameOver = true;
+				}
+
+				GameLogic::EndTurn();
+			}
 		}
 	}
 }
