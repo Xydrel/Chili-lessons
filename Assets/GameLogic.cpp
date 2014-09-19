@@ -13,6 +13,7 @@ GameLogic::GameLogic( D3DGraphics* gfx, KeyboardClient* kbdClient )
 	, wasKeyPressedLastFrame( false )
 	, player( gameBoard.playerA )
 	, m_gameOver( false )
+	, m_gameAI( new AI(gameBoard) )
 {}
 
 // --------------------------------------------------------------------------------

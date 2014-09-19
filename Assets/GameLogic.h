@@ -6,6 +6,7 @@
 #include "PlayerX.h"
 #include <string>
 
+#include "Behaviour/AI.h"
 
 #define VERIFY(val) if (val == 0x00) EXCEPTION_EXIT_UNWIND
 
@@ -25,7 +26,8 @@ private:
 	KeyboardClient*	m_Keyboardclient;		// KeyboardClient to be used by the players
 	PlayerCircle*	m_circlePlayer;			// Circle player object instance
 	PlayerX*		m_xplayer;				// X player object instance pointer
-	bool			m_gameOver;	   
+	bool			m_gameOver;
+	AI*				m_gameAI;
 
 	enum GameWinner
 	{
