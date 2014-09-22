@@ -1,7 +1,6 @@
 
 #include "D3DGraphics.h"
 #include "Keyboard.h"
-#include "GameBoard.h"
 #include "PlayerCircle.h"
 #include "PlayerX.h"
 #include <string>
@@ -27,7 +26,7 @@ private:
 	PlayerCircle*	m_circlePlayer;			// Circle player object instance
 	PlayerX*		m_xplayer;				// X player object instance pointer
 	bool			m_gameOver;
-	//AI*				m_gameAI;
+	AI*				m_gameAI;				// The AI to control the computer apponent
 
 	enum GameWinner
 	{
@@ -54,11 +53,11 @@ private:
 public:
 // =================================================
 // Public Member Variables
-	GameBoard		gameBoard;				// Game board object instance
-	GameBoard::CellState player;
-	int				cursorX;				// Cursor X position on the board
-	int				cursorY;				// cursor Y position on the board
-	bool			wasKeyPressedLastFrame;	// holds the state of if the keyboard key was previously pressed
+	GameBoard				gameBoard;				// Game board object instance
+	GameBoard::CellState	player;
+	int						cursorX;				// Cursor X position on the board
+	int						cursorY;				// cursor Y position on the board
+	bool					wasKeyPressedLastFrame;	// holds the state of if the keyboard key was previously pressed
 
 
 // =================================================
