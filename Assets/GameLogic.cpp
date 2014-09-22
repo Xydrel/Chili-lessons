@@ -302,13 +302,26 @@ void GameLogic::MovementInput()
 				wasKeyPressedLastFrame = false;
 			}
 
-			if ( m_Keyboardclient->EnterIsPressed() &&
-				 gameBoard.GetCellState( cursorX, cursorY ) == GameBoard::EMPTY)
+			if ( !m_gameOver )
 			{
+				if ( player != GameBoard::O )
+				{
+					if ( m_Keyboardclient->EnterIsPressed() &&
+						 gameBoard.GetCellState( cursorX, cursorY ) == GameBoard::EMPTY)
+					{
+						gameBoard.SetCellState( cursorX, cursorY, player );
 
-				gameBoard.SetCellState( cursorX, cursorY, player );
+					}
+				}
+				else
+				{
+					// use the game AI here to play the turn
+					m_gameAI->AiPickLocationOnGameBoard();
+				}
 
 				m_winner = CheckPiecesOnBoard();
+
+				GameLogic::EndTurn();
 
 				if ( m_winner == WINNER_X ||
 					m_winner == WINNER_O ||
@@ -316,8 +329,6 @@ void GameLogic::MovementInput()
 				{
 					m_gameOver = true;
 				}
-
-				GameLogic::EndTurn();
 			}
 		}
 	}
