@@ -14,14 +14,14 @@ public:
 	~AI() { if (m_pGameBoard) { delete m_pGameBoard; m_pGameBoard = NULL; } }
 	//~AI();
 
-	GameBoard::CellState AIMoveX( );
-	GameBoard::CellState AIMoveO( );
+	GameBoard::CellState SetAIPieceX( );
+	GameBoard::CellState SetAIPieceO( );
 
-	int RandomSelection( std::vector<int> charArray );
+	int GetRandomSelection( std::vector<int> charArray );
 
 public:
 	GameBoard::CellState AIPlayer = m_pGameBoard->O;
-	void AiPickLocationOnGameBoard();
+	void GetAIPlayCell();
 
 // ================================================
 // Protected Member Functions
@@ -32,6 +32,8 @@ protected:
 // ================================================
 // Private Member Functions
 private:
+	int GetRandomIndex();
+	void SetPlayPieceOnBoard(int& index);
 
 // ================================================
 // Private Member Variables
