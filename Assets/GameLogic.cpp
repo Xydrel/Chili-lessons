@@ -309,17 +309,18 @@ void GameLogic::MovementInput()
 					if ( m_Keyboardclient->EnterIsPressed() &&
 						 gameBoard.GetCellState( cursorX, cursorY ) == GameBoard::EMPTY)
 					{
-						gameBoard.SetCellState( cursorX, cursorY, player );						
+						gameBoard.SetCellState( cursorX, cursorY, player );
+						EndTurn( );
 					}
 				}
 				else
 				{
 					// use the game AI here to play the turn
-					m_gameAI->AiPickLocationOnGameBoard();
+					m_gameAI->GetAIPlayCell();
+					EndTurn( );
 				}
 
 				m_winner = CheckPiecesOnBoard();
-				EndTurn();
 
 				if ( m_winner == WINNER_X ||
 					m_winner == WINNER_O ||
