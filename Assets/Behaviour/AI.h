@@ -12,6 +12,7 @@ class AI
 public:
 	AI( GameBoard* gameBoard ) { m_pGameBoard = gameBoard; }
 	~AI() { if (m_pGameBoard) { delete m_pGameBoard; m_pGameBoard = NULL; } }
+	//~AI();
 
 	GameBoard::CellState AIMoveX( );
 	GameBoard::CellState AIMoveO( );
@@ -19,7 +20,7 @@ public:
 	int RandomSelection( std::vector<int> charArray );
 
 public:
-	GameBoard::CellState AIPlayer = m_pGameBoard->playerB;
+	GameBoard::CellState AIPlayer = m_pGameBoard->O;
 	void AiPickLocationOnGameBoard();
 
 // ================================================
