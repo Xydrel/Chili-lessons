@@ -32,16 +32,6 @@ public:
 		O,
 	};
 
-	CellState s0;											// Cell 0 state
-	CellState s1;											// Cell 1 state
-	CellState s2;											// Cell 2 state
-	CellState s3;											// Cell 3 State
-	CellState s4;											// Cell 4 state
-	CellState s5;											// Cell 5 State
-	CellState s6;											// Cell 6 State
-	CellState s7;											// Cell 7 State
-	CellState s8;											// Cell 8 State
-
 	CellState playerA = X;
 	CellState playerB = O;
 
@@ -58,6 +48,15 @@ public:
 // =================================================
 // Private Member Variables
 private:
+	CellState s0;											// Cell 0 state
+	CellState s1;											// Cell 1 state
+	CellState s2;											// Cell 2 state
+	CellState s3;											// Cell 3 State
+	CellState s4;											// Cell 4 state
+	CellState s5;											// Cell 5 State
+	CellState s6;											// Cell 6 State
+	CellState s7;											// Cell 7 State
+	CellState s8;											// Cell 8 State
 
 };
 

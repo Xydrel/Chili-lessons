@@ -13,7 +13,7 @@ GameLogic::GameLogic( D3DGraphics* gfx, KeyboardClient* kbdClient )
 	, wasKeyPressedLastFrame( false )
 	, player( gameBoard.playerA )
 	, m_gameOver( false )
-//	, m_gameAI( new AI( &gameBoard ) )
+	, m_gameAI( new AI( &gameBoard ) )
 {}
 
 // --------------------------------------------------------------------------------
@@ -309,8 +309,7 @@ void GameLogic::MovementInput()
 					if ( m_Keyboardclient->EnterIsPressed() &&
 						 gameBoard.GetCellState( cursorX, cursorY ) == GameBoard::EMPTY)
 					{
-						gameBoard.SetCellState( cursorX, cursorY, player );
-
+						gameBoard.SetCellState( cursorX, cursorY, player );						
 					}
 				}
 				else
@@ -320,8 +319,7 @@ void GameLogic::MovementInput()
 				}
 
 				m_winner = CheckPiecesOnBoard();
-
-				GameLogic::EndTurn();
+				EndTurn();
 
 				if ( m_winner == WINNER_X ||
 					m_winner == WINNER_O ||
