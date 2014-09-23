@@ -34,6 +34,7 @@ protected:
 private:
 	int GetRandomIndex();
 	void SetPlayPieceOnBoard(int& index);
+	void EvaluateGameBoard();
 
 // ================================================
 // Private Member Variables

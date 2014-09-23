@@ -55,6 +55,37 @@ void AI::SetPlayPieceOnBoard(int& index)
 	}
 }
 
+void EvaluateGameBoard()
+{
+	//if ( m_pGameBoard->GetCellState( 0 ) == m_pGameBoard->X &&
+	//	m_pGameBoard->GetCellState( 1 ) == m_pGameBoard->X &&
+	//	m_pGameBoard->GetCellState( 2 ) == m_pGameBoard->X ||
+	//	m_pGameBoard->GetCellState( 3 ) == m_pGameBoard->X &&
+	//	m_pGameBoard->GetCellState( 4 ) == m_pGameBoard->X &&
+	//	m_pGameBoard->GetCellState( 5 ) == m_pGameBoard->X ||
+	//	m_pGameBoard->GetCellState( 6 ) == m_pGameBoard->X &&
+	//	m_pGameBoard->GetCellState( 7 ) == m_pGameBoard->X &&
+	//	m_pGameBoard->GetCellState( 8 ) == m_pGameBoard->X ||
+	//	m_pGameBoard->GetCellState( 0 ) == m_pGameBoard->X &&
+	//	m_pGameBoard->GetCellState( 3 ) == m_pGameBoard->X &&
+	//	m_pGameBoard->GetCellState( 6 ) == m_pGameBoard->X ||
+	//	m_pGameBoard->GetCellState( 1 ) == m_pGameBoard->X &&
+	//	m_pGameBoard->GetCellState( 4 ) == m_pGameBoard->X &&
+	//	m_pGameBoard->GetCellState( 7 ) == m_pGameBoard->X ||
+	//	m_pGameBoard->GetCellState( 2 ) == m_pGameBoard->X &&
+	//	m_pGameBoard->GetCellState( 5 ) == m_pGameBoard->X &&
+	//	m_pGameBoard->GetCellState( 8 ) == m_pGameBoard->X ||
+	//	m_pGameBoard->GetCellState( 0 ) == m_pGameBoard->X &&
+	//	m_pGameBoard->GetCellState( 4 ) == m_pGameBoard->X &&
+	//	m_pGameBoard->GetCellState( 8 ) == m_pGameBoard->X ||
+	//	m_pGameBoard->GetCellState( 2 ) == m_pGameBoard->X &&
+	//	m_pGameBoard->GetCellState( 4 ) == m_pGameBoard->X &&
+	//	m_pGameBoard->GetCellState( 6 ) == m_pGameBoard->X )
+	//{
+	//	// we want to evaluate these winning positions and react accordingly
+	//}
+}
+
 /// <summary>
 /// Function will perform determination on which cell to place
 /// the computer player piece on. Computer player piece is O.
