@@ -98,7 +98,10 @@ int AI::EvaluateGameBoard()
 	return -1;
 }
 
-
+/// <summary>
+/// Evaluate the board for a position which could allow the computer
+/// to perform a winning move
+/// </summary>
 int AI::PlayAdjacentCellPosition()
 {
 	std::vector<int> set1 = { 0, 1, 2 };
@@ -203,12 +206,7 @@ void AI::GetAIPlayCell()
 		for ( ; itr != gameCells.end(); ++itr )
 		{
 			//AICellDecision = PlayBestPositions( );
-			if ( m_pGameBoard->GetCellState( *itr ) != GameBoard::EMPTY ) {}
-			else
-			{
-				SetPlayPieceOnBoard( *itr );
-				break;
-			}
+			if ( m_pGameBoard->GetCellState( *itr ) == GameBoard::EMPTY ) { SetPlayPieceOnBoard( *itr ); break; }
 		}
 	}
 }
