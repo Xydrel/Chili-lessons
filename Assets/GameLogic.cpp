@@ -14,6 +14,7 @@ GameLogic::GameLogic( D3DGraphics* gfx, KeyboardClient* kbdClient )
 	, player( gameBoard.playerA )
 	, m_gameOver( false )
 	, m_gameAI( new AI( &gameBoard ) )
+	, m_DelayCounter( 0 )
 {}
 
 // --------------------------------------------------------------------------------
@@ -244,6 +245,10 @@ void GameLogic::MovementInput()
 		if ( m_gameOver )
 		{
 			DrawGameResults( 355, 500 );
+
+			int maxFramesBeforeExit = 360;
+			if ( m_DelayCounter >= maxFramesBeforeExit ) { exit( 0 ); }
+			else { m_DelayCounter++; }
 		}
 		else
 		{

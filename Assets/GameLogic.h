@@ -58,6 +58,7 @@ public:
 	int						cursorX;				// Cursor X position on the board
 	int						cursorY;				// cursor Y position on the board
 	bool					wasKeyPressedLastFrame;	// holds the state of if the keyboard key was previously pressed
+	unsigned int			m_DelayCounter;			// Stores the count of frames till game exits
 
 
 // =================================================
