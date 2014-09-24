@@ -34,11 +34,6 @@ GameLogic::~GameLogic()
 		m_circlePlayer->~PlayerCircle();
 		m_circlePlayer = NULL;
 	}
-	//if ( gameBoard )
-	//{
-	//	gameBoard->~GameBoard();
-	//	gameBoard = NULL;
-	//}
 }
 
 // --------------------------------------------------------------------------------
