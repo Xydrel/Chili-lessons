@@ -182,10 +182,10 @@ void AI::GetAIPlayCell()
 	int AICellDecision = NULL;
 
 	// going to replace this logic with something more smart
-	AICellDecision = EvaluateGameBoard();
+	AICellDecision = PlayAdjacentCellPosition();
 	if ( AICellDecision == -1 )
 	{
-		AICellDecision = PlayAdjacentCellPosition();
+		AICellDecision = EvaluateGameBoard();
 		if ( AICellDecision == -1 )
 		{
 			AICellDecision = PlayBestPositions();
