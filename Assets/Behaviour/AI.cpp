@@ -22,14 +22,20 @@ GameBoard::CellState AI::SetAIPieceO( )
 }
 
 /// <summary>
-/// An array is passed into the function as a paramter, an element 
+/// An array is passed into the function as a parameter, an element 
 /// of the array will then be randomly selected, then returned. 
 /// This function was designed with the idea of it returning a random
 /// index to use in selecting a cell for the computer to play in.
 /// </summary>
-int AI::GetRandomSelection(std::vector<int> numArray )
+int AI::GetRandomSelection(std::vector<int>& numArray )
 {
 	int count = sizeof( numArray );
+	int randomIndex = rand() % count;
+	return randomIndex;
+}
+
+int AI::GetRandomSelection( int& count )
+{
 	int randomIndex = rand() % count;
 	return randomIndex;
 }
@@ -39,108 +45,156 @@ int AI::GetRandomSelection(std::vector<int> numArray )
 ///	function will return a random int from 0 - 8, a
 /// Very simplistic way of getting a random int value.
 ///	</summary>
-int AI::GetRandomIndex()
+int AI::GetRandomIndex(int& count)
 {
+	srand( time( NULL ) );
 	int index;
-	index = rand() % 8;
+	index = rand() % count;
 	return index;
 }
 
 void AI::SetPlayPieceOnBoard(int& index)
 {
 	if ( index > -1 && 
-			index < 10 )
+		 index < 10 )
 	{
 		m_pGameBoard->SetCellState( index, m_pGameBoard->O );
 	}
 }
 
-void EvaluateGameBoard()
+int AI::EvaluateGameBoard()
 {
-	//if ( m_pGameBoard->GetCellState( 0 ) == m_pGameBoard->X &&
-	//	m_pGameBoard->GetCellState( 1 ) == m_pGameBoard->X &&
-	//	m_pGameBoard->GetCellState( 2 ) == m_pGameBoard->X ||
-	//	m_pGameBoard->GetCellState( 3 ) == m_pGameBoard->X &&
-	//	m_pGameBoard->GetCellState( 4 ) == m_pGameBoard->X &&
-	//	m_pGameBoard->GetCellState( 5 ) == m_pGameBoard->X ||
-	//	m_pGameBoard->GetCellState( 6 ) == m_pGameBoard->X &&
-	//	m_pGameBoard->GetCellState( 7 ) == m_pGameBoard->X &&
-	//	m_pGameBoard->GetCellState( 8 ) == m_pGameBoard->X ||
-	//	m_pGameBoard->GetCellState( 0 ) == m_pGameBoard->X &&
-	//	m_pGameBoard->GetCellState( 3 ) == m_pGameBoard->X &&
-	//	m_pGameBoard->GetCellState( 6 ) == m_pGameBoard->X ||
-	//	m_pGameBoard->GetCellState( 1 ) == m_pGameBoard->X &&
-	//	m_pGameBoard->GetCellState( 4 ) == m_pGameBoard->X &&
-	//	m_pGameBoard->GetCellState( 7 ) == m_pGameBoard->X ||
-	//	m_pGameBoard->GetCellState( 2 ) == m_pGameBoard->X &&
-	//	m_pGameBoard->GetCellState( 5 ) == m_pGameBoard->X &&
-	//	m_pGameBoard->GetCellState( 8 ) == m_pGameBoard->X ||
-	//	m_pGameBoard->GetCellState( 0 ) == m_pGameBoard->X &&
-	//	m_pGameBoard->GetCellState( 4 ) == m_pGameBoard->X &&
-	//	m_pGameBoard->GetCellState( 8 ) == m_pGameBoard->X ||
-	//	m_pGameBoard->GetCellState( 2 ) == m_pGameBoard->X &&
-	//	m_pGameBoard->GetCellState( 4 ) == m_pGameBoard->X &&
-	//	m_pGameBoard->GetCellState( 6 ) == m_pGameBoard->X )
-	//{
-	//	// we want to evaluate these winning positions and react accordingly
-	//}
+	// if any of the set of three are equal, return the index of the empty cell
+	std::vector<int> set1 = { 0,1,2 };
+	std::vector<int> set2 = { 3,4,5 };
+	std::vector<int> set3 = { 6,7,8 };
+	std::vector<int> set4 = { 0,3,6 };
+	std::vector<int> set5 = { 1,4,7 };
+	std::vector<int> set6 = { 2,5,8 };
+	std::vector<int> set7 = { 0,4,8 };
+	std::vector<int> set8 = { 2,4,6 };
+
+	std::list<std::vector<int>> SetList = { set1,set2,set3,set4,set5,set6,set7,set8 };
+
+	for ( std::list<std::vector<int>>::iterator lItr = SetList.begin(); lItr != SetList.end(); ++lItr )
+	{
+		// now check for a winning move
+		int nonEmptyCounter = 0;
+		for ( std::vector<int>::iterator itr = lItr->begin( ); itr != lItr->end( ); ++itr )
+		{
+			// if any two are equal, return index to the empty cell			
+			if ( m_pGameBoard->GetCellState( *itr ) == GameBoard::X ) nonEmptyCounter++;
+
+			// If we found two matching in the winning row, return the Empty cell index to stop winning move
+			if ( nonEmptyCounter >= 2 )
+			{
+				for ( std::vector<int>::iterator itr = lItr->begin( ); itr != lItr->end( ); ++itr )
+				{
+					if ( m_pGameBoard->GetCellState( *itr) == GameBoard::EMPTY ) return *itr;
+				}
+			}
+		}
+	}
+	return -1;
+}
+
+
+int AI::PlayAdjacentCellPosition()
+{
+	std::vector<int> set1 = { 0, 1, 2 };
+	std::vector<int> set2 = { 3, 4, 5 };
+	std::vector<int> set3 = { 6, 7, 8 };
+	std::vector<int> set4 = { 0, 3, 6 };
+	std::vector<int> set5 = { 1, 4, 7 };
+	std::vector<int> set6 = { 2, 5, 8 };
+	std::vector<int> set7 = { 0, 4, 8 };
+	std::vector<int> set8 = { 2, 4, 6 };
+
+	std::list<std::vector<int>> SetList = { set1, set2, set3, set4, set5, set6, set7, set8 };
+
+	// if we have a piece in one of these position, and an adjacent position is not blocked
+	// we want to place a piece to try to win.
+	for ( std::list<std::vector<int>>::iterator lItr = SetList.begin(); lItr != SetList.end(); ++lItr )
+	{
+		// now check for a winning move
+		int nonEmptyCounter = 0;
+		for ( std::vector<int>::iterator itr = lItr->begin(); itr != lItr->end(); ++itr )
+		{
+			// if any two are equal, return index to the empty cell
+			if ( m_pGameBoard->GetCellState( *itr ) == GameBoard::O ) nonEmptyCounter++;
+
+			// If we found two matching in the winning row, return the Empty cell index to stop winning move
+			if ( nonEmptyCounter >= 2 )
+			{
+				for ( std::vector<int>::iterator itr = lItr->begin(); itr != lItr->end(); ++itr )
+				{
+					if ( m_pGameBoard->GetCellState( *itr ) == GameBoard::EMPTY ) return *itr;
+				}
+			}
+		}
+	}
+	return -1;
+}
+
+/// <summary>
+/// Evaluate the board after player 1 goes and determine a first position
+/// </summary>
+int AI::PlayBestPositions()
+{
+	int count = NULL;
+	int i = 0x00;
+	int boardCellIndex = NULL;
+
+	std::vector<int> startingPositions = { 0,2,6,8,0 };
+	for ( std::vector<int>::iterator itr = startingPositions.begin(); itr != startingPositions.end(); ++itr )
+	{
+		if ( m_pGameBoard->GetCellState( *itr ) == GameBoard::EMPTY ) count++;
+	}
+
+	if ( count != NULL )
+	{
+		boardCellIndex = GetRandomIndex( count );
+		return boardCellIndex;
+	}
+	else
+	{
+		return boardCellIndex;
+	}
+
+	return -1;
 }
 
 /// <summary>
 /// Function will perform determination on which cell to place
 /// the computer player piece on. Computer player piece is O.
 ///</summary>
-void AI::GetAIPlayCell( )
+void AI::GetAIPlayCell()
 {
-	int index = NULL;
-	int counter = 0;
-	while ( index == NULL || m_pGameBoard->GetCellState( index ) == m_pGameBoard->EMPTY  )
+	Sleep( 500 );
+
+	int AICellDecision = NULL;
+	while ( AICellDecision == NULL || m_pGameBoard->GetCellState( AICellDecision ) == m_pGameBoard->EMPTY )
 	{
-		++counter;
-		index = GetRandomIndex();
-
-		if ( m_pGameBoard->GetCellState(index) == m_pGameBoard->EMPTY )
+		// going to replace this logic with something more smart
+		AICellDecision = EvaluateGameBoard();
+		if ( AICellDecision == -1 )
 		{
-			SetPlayPieceOnBoard(index);
-		}
-		else
-		{
-			GetAIPlayCell();
+			AICellDecision = PlayAdjacentCellPosition();
+			if ( AICellDecision == -1 )
+			{
+				AICellDecision = PlayBestPositions();
+			}
 		}
 
-		if ( counter > 9 )
+		if ( m_pGameBoard->GetCellState( AICellDecision ) == m_pGameBoard->EMPTY )
+		{
+			SetPlayPieceOnBoard( AICellDecision );
+		}
+		else if ( m_pGameBoard->GetCellState( AICellDecision ) != m_pGameBoard->EMPTY )
 		{
 			break;
 		}
 	}
-	 
-	//if (m_pGameBoard->GetCellState(0) == m_pGameBoard->EMPTY ||
-	//	m_pGameBoard->GetCellState(2) == m_pGameBoard->EMPTY ||
-	//	m_pGameBoard->GetCellState(6) == m_pGameBoard->EMPTY ||
-	//	m_pGameBoard->GetCellState(8) == m_pGameBoard->EMPTY ||
-	//	m_pGameBoard->GetCellState(4) == m_pGameBoard->EMPTY)
-	//{
-		// place a piece in one of these places
-		//std::vector<int> charNumArray = { 0, 2, 6, 8, 4 };
-		//index = RandomSelection( charNumArray );
-
-		//m_pGameBoard->SetCellState( charNumArray[index], AIMoveO() );
-		//m_pGameBoard->SetCellState(0, AIMoveO());
-	//}
-	//else if ( m_pGameBoard->GetCellState( 4 ) == m_pGameBoard->EMPTY )
-	//{
-		// select one of the above locations to place a piece
-		//std::vector<int> charNumArray = { 1, 3, 5, 7 };
-		//index = RandomSelection( charNumArray );
-
-		//m_pGameBoard->SetCellState( charNumArray[index], AIMoveO() );
-	//}
-	//else
-	//{
-		// evaluate the board for potential winning locations
-		//std::vector<int> charNumArray = { 1, 3, 5, 7 };
-		//index = RandomSelection( charNumArray );
-
-		//m_pGameBoard->SetCellState( charNumArray[index], AIMoveO() );
-	//}
 }
+
+

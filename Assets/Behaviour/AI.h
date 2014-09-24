@@ -1,8 +1,11 @@
 #pragma once
 
 #include "../GameBoard.h"
+#include "windows.h"
 
 #include <vector>
+#include <list>
+#include <time.h>
 
 
 class AI
@@ -17,7 +20,6 @@ public:
 	GameBoard::CellState SetAIPieceX( );
 	GameBoard::CellState SetAIPieceO( );
 
-	int GetRandomSelection( std::vector<int> charArray );
 
 public:
 	GameBoard::CellState AIPlayer = m_pGameBoard->O;
@@ -32,9 +34,14 @@ protected:
 // ================================================
 // Private Member Functions
 private:
-	int GetRandomIndex();
+	int GetRandomIndex(int& count);
+	int GetRandomSelection( int& count );
+	int GetRandomSelection( std::vector<int>& charArray );
+	int EvaluateGameBoard();
+	int PlayBestPositions();
+	int PlayAdjacentCellPosition();
+
 	void SetPlayPieceOnBoard(int& index);
-	void EvaluateGameBoard();
 
 // ================================================
 // Private Member Variables
