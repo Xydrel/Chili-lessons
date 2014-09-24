@@ -123,7 +123,7 @@ int AI::PlayAdjacentCellPosition()
 			// if any two are equal, return index to the empty cell
 			if ( m_pGameBoard->GetCellState( *itr ) == GameBoard::O ) nonEmptyCounter++;
 
-			// If we found two matching in the winning row, return the Empty cell index to stop winning move
+			// If we found two matching in the winning row, return the Empty cell index to attempt a winning move
 			if ( nonEmptyCounter >= 2 )
 			{
 				for ( std::vector<int>::iterator itr = lItr->begin(); itr != lItr->end(); ++itr )
@@ -145,22 +145,29 @@ int AI::PlayBestPositions()
 	int i = 0x00;
 	int boardCellIndex = NULL;
 
-	std::vector<int> startingPositions = { 0,2,6,8,0 };
-	for ( std::vector<int>::iterator itr = startingPositions.begin(); itr != startingPositions.end(); ++itr )
+	if ( m_pGameBoard->GetCellState( 4 ) == GameBoard::EMPTY )
 	{
-		if ( m_pGameBoard->GetCellState( *itr ) == GameBoard::EMPTY ) count++;
-	}
-
-	if ( count != NULL )
-	{
-		boardCellIndex = GetRandomIndex( count );
-		return boardCellIndex;
+		return 4;
 	}
 	else
 	{
-		return boardCellIndex;
-	}
+		std::vector<int> startingPositions = { 2,6,8,0 };
+		for ( std::vector<int>::iterator itr = startingPositions.begin(); itr != startingPositions.end(); ++itr )
+		{
+			if ( m_pGameBoard->GetCellState( *itr ) == GameBoard::EMPTY ) count++;
+		}
 
+		if ( count != NULL )
+		{
+			boardCellIndex = GetRandomIndex( count );
+			return boardCellIndex;
+		}
+		else
+		{
+			return boardCellIndex;
+		}
+	}
+	
 	return -1;
 }
 
@@ -173,26 +180,35 @@ void AI::GetAIPlayCell()
 	Sleep( 500 );
 
 	int AICellDecision = NULL;
-	while ( AICellDecision == NULL || m_pGameBoard->GetCellState( AICellDecision ) == m_pGameBoard->EMPTY )
+
+	// going to replace this logic with something more smart
+	AICellDecision = EvaluateGameBoard();
+	if ( AICellDecision == -1 )
 	{
-		// going to replace this logic with something more smart
-		AICellDecision = EvaluateGameBoard();
+		AICellDecision = PlayAdjacentCellPosition();
 		if ( AICellDecision == -1 )
 		{
-			AICellDecision = PlayAdjacentCellPosition();
-			if ( AICellDecision == -1 )
-			{
-				AICellDecision = PlayBestPositions();
-			}
+			AICellDecision = PlayBestPositions();
 		}
+	}
 
-		if ( m_pGameBoard->GetCellState( AICellDecision ) == m_pGameBoard->EMPTY )
+	if ( m_pGameBoard->GetCellState( AICellDecision ) == m_pGameBoard->EMPTY )
+	{
+		SetPlayPieceOnBoard( AICellDecision );
+	}
+	else if ( m_pGameBoard->GetCellState( AICellDecision ) != m_pGameBoard->EMPTY )
+	{
+		std::vector<int> gameCells = { 0,1,2,3,4,5,6,7,8 };
+		std::vector<int>::iterator itr = gameCells.begin();
+		for ( ; itr != gameCells.end(); ++itr )
 		{
-			SetPlayPieceOnBoard( AICellDecision );
-		}
-		else if ( m_pGameBoard->GetCellState( AICellDecision ) != m_pGameBoard->EMPTY )
-		{
-			break;
+			//AICellDecision = PlayBestPositions( );
+			if ( m_pGameBoard->GetCellState( *itr ) != GameBoard::EMPTY ) {}
+			else
+			{
+				SetPlayPieceOnBoard( *itr );
+				break;
+			}
 		}
 	}
 }
