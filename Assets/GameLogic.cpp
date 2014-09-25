@@ -11,9 +11,12 @@ GameLogic::GameLogic( D3DGraphics* gfx, KeyboardClient* kbdClient )
 	, m_circlePlayer()
 	, m_xplayer()
 	, wasKeyPressedLastFrame( false )
-	, player( gameBoard.SetStartingPlayer( ) )
+	, playerPiece( gameBoard.X )
+	, player( gameBoard.SetStartingPlayer() )
+	, startingPlayer( player )
+	, computerPlayerPiece( SetComputerPlayerPiece() )
 	, m_gameOver( false )
-	, m_gameAI( new AI( &gameBoard ) )
+	, m_gameAI( new AI( &gameBoard, &computerPlayerPiece ) )
 	, m_DelayCounter( 0 )
 {}
 
@@ -105,22 +108,29 @@ void GameLogic::DrawCursor( int x, int y )
 }
 
 // --------------------------------------------------------------------------------
-void GameLogic::EndTurn()
+GameBoard::CellState GameLogic::SetComputerPlayerPiece()
 {
-	if ( player == gameBoard.playerA )
-	{
-		player = gameBoard.playerB;
-	}
-	else if ( player == gameBoard.playerB )
-	{
-		player = gameBoard.playerA;
-	}
+	if (startingPlayer == gameBoard.HUMAN) return gameBoard.O;
+	else if (startingPlayer == gameBoard.COMPUTER) return gameBoard.X;
+
+	return gameBoard.EMPTY;
 }
 
 // --------------------------------------------------------------------------------
-void GameLogic::DoUserInput()
+void GameLogic::EndTurn()
 {
-
+	if ( playerPiece == gameBoard.X )
+	{
+		playerPiece = gameBoard.O;
+		if (player == gameBoard.HUMAN) player = gameBoard.COMPUTER;
+		else if (player == gameBoard.COMPUTER) player = gameBoard.HUMAN;
+	}
+	else if (playerPiece == gameBoard.O)
+	{
+		playerPiece = gameBoard.X;
+		if (player == gameBoard.HUMAN) player = gameBoard.COMPUTER;
+		else if (player == gameBoard.COMPUTER) player = gameBoard.HUMAN;
+	}
 }
 
 // --------------------------------------------------------------------------------
@@ -246,7 +256,7 @@ void GameLogic::MovementInput()
 		{
 			DrawGameResults( 355, 500 );
 
-			int maxFramesBeforeExit = 360;
+			unsigned int maxFramesBeforeExit = 360;
 			if ( m_DelayCounter >= maxFramesBeforeExit ) { exit( 0 ); }
 			else { m_DelayCounter++; }
 		}
@@ -304,12 +314,12 @@ void GameLogic::MovementInput()
 
 			if ( !m_gameOver )
 			{
-				if ( player != GameBoard::O )
+				if ( player != GameBoard::COMPUTER )
 				{
 					if ( m_Keyboardclient->EnterIsPressed() &&
 						 gameBoard.GetCellState( cursorX, cursorY ) == GameBoard::EMPTY)
 					{
-						gameBoard.SetCellState( cursorX, cursorY, player );
+						gameBoard.SetCellState(cursorX, cursorY, playerPiece);
 						EndTurn( );
 					}
 				}

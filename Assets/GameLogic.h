@@ -48,13 +48,18 @@ private:
 
 	void MovementInput();
 	GameWinner CheckPiecesOnBoard();		// Evaluate the state of the board for a possible winner
+
+	GameBoard::CellState SetComputerPlayerPiece();
 	
 
 public:
 // =================================================
 // Public Member Variables
 	GameBoard				gameBoard;				// Game board object instance
-	GameBoard::CellState	player;
+	GameBoard::CellState	playerPiece;
+	GameBoard::CellState	computerPlayerPiece;
+	GameBoard::Player		player;
+	GameBoard::Player		startingPlayer;
 	int						cursorX;				// Cursor X position on the board
 	int						cursorY;				// cursor Y position on the board
 	bool					wasKeyPressedLastFrame;	// holds the state of if the keyboard key was previously pressed
@@ -68,7 +73,6 @@ public:
 	void DrawO( int x, int y );				// Draw O piece at position x,y
 	void DrawCursor( int x, int y );		// Draw Cursor at position x,y
 
-	void DoUserInput( );					// Obsolete
 	void EndTurn( );						// End the turn of a player/ switch to next player
 	void GameLoop( );						// Main game loop
 

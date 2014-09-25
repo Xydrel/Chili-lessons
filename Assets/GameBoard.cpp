@@ -11,22 +11,11 @@ GameBoard::GameBoard()
 	{
 		SetCellState( index, EMPTY );
 	}
-
-	//gb = new GameBoard();
-
-	// Temp Code to draw player pieces
-	//SetCellState( 0, 0, X );
-	//SetCellState( 1, 1, O );
 }
 
 // --------------------------------------------------------------------------------
 GameBoard::~GameBoard()
 {
-	//if ( gb )
-	//{
-	//	delete gb;
-	//	gb = NULL;
-	//}
 }
 
 // --------------------------------------------------------------------------------
@@ -79,11 +68,11 @@ GameBoard::CellState GameBoard::GetCellState( int ix, int iy )
 	return GetCellState( index );
 }
 
-GameBoard::CellState GameBoard::SetStartingPlayer()
+GameBoard::Player GameBoard::SetStartingPlayer()
 {
 	int selection = randomSelectPlayer();
-	if ( selection == 0 ) curPlayer = playerA;
-	else if ( selection == 1 ) curPlayer = playerB;
+	if ( selection == 0 ) curPlayer = HUMAN;
+	else if ( selection == 1 ) curPlayer = COMPUTER;
 
 	return curPlayer;
 }

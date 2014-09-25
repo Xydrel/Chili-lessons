@@ -40,12 +40,18 @@ public:
 		O,
 	};
 
-	CellState SetStartingPlayer();
+	enum Player
+	{
+		HUMAN,
+		COMPUTER,
+	};
+
+	Player SetStartingPlayer();
 	CellState playerA = X;
 	CellState playerB = O;
 
 	// debug set player to X
-	CellState curPlayer;
+	Player curPlayer;
 
 // =================================================
 // Public Member Functions
