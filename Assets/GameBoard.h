@@ -40,7 +40,7 @@ public:
 		O,
 	};
 
-	CellState setStartingPlayer();
+	CellState SetStartingPlayer();
 	CellState playerA = X;
 	CellState playerB = O;
 

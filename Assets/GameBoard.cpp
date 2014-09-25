@@ -79,7 +79,7 @@ GameBoard::CellState GameBoard::GetCellState( int ix, int iy )
 	return GetCellState( index );
 }
 
-GameBoard::CellState GameBoard::setStartingPlayer()
+GameBoard::CellState GameBoard::SetStartingPlayer()
 {
 	int selection = randomSelectPlayer();
 	if ( selection == 0 ) curPlayer = playerA;
