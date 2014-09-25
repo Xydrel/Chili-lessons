@@ -1,6 +1,9 @@
 
 #include "GameBoard.h"
 
+#include <time.h>
+#include<algorithm>
+
 // --------------------------------------------------------------------------------
 GameBoard::GameBoard()
 {
@@ -76,4 +79,23 @@ GameBoard::CellState GameBoard::GetCellState( int ix, int iy )
 	return GetCellState( index );
 }
 
+GameBoard::CellState GameBoard::setStartingPlayer()
+{
+	int selection = randomSelectPlayer();
+	if ( selection == 0 ) curPlayer = playerA;
+	else if ( selection == 1 ) curPlayer = playerB;
 
+	return curPlayer;
+}
+
+int GameBoard::randomSelectPlayer()
+{
+	srand( time( NULL ) );
+
+	unsigned int result = rand() % 100;
+
+	if ( result <= 49 ) return 0;
+	else if ( result >= 50 ) return 1;
+
+	return NULL;
+}

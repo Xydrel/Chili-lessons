@@ -22,6 +22,14 @@ public:
 protected:
 	GameBoard* gb;
 
+
+// =================================================
+// Protected Member Function
+protected:
+	int randomSelectPlayer();
+
+
+
 // =================================================
 // Public Member Variables
 public:
@@ -32,6 +40,7 @@ public:
 		O,
 	};
 
+	CellState setStartingPlayer();
 	CellState playerA = X;
 	CellState playerB = O;
 
