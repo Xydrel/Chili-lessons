@@ -166,27 +166,20 @@ int AI::PlayBestPositions()
 	int i = 0x00;
 	int boardCellIndex = NULL;
 
-	if ( m_pGameBoard->GetCellState( 4 ) == GameBoard::EMPTY )
+	std::vector<int> startingPositions = { 2,4,6,8,0 };
+	for ( std::vector<int>::iterator itr = startingPositions.begin(); itr != startingPositions.end(); ++itr )
 	{
-		return 4;
+		if ( m_pGameBoard->GetCellState( *itr ) == GameBoard::EMPTY ) count++;
+	}
+
+	if ( count != NULL )
+	{
+		boardCellIndex = GetRandomIndex( count );
+		return boardCellIndex;
 	}
 	else
 	{
-		std::vector<int> startingPositions = { 2,6,8,0 };
-		for ( std::vector<int>::iterator itr = startingPositions.begin(); itr != startingPositions.end(); ++itr )
-		{
-			if ( m_pGameBoard->GetCellState( *itr ) == GameBoard::EMPTY ) count++;
-		}
-
-		if ( count != NULL )
-		{
-			boardCellIndex = GetRandomIndex( count );
-			return boardCellIndex;
-		}
-		else
-		{
-			return boardCellIndex;
-		}
+		return boardCellIndex;
 	}
 	
 	return -1;
