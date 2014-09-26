@@ -148,7 +148,8 @@ int AI::PlayAdjacentCellPosition()
 			{
 				for ( std::vector<int>::iterator itr = lItr->begin(); itr != lItr->end(); ++itr )
 				{
-					if ( m_pGameBoard->GetCellState( *itr ) == GameBoard::EMPTY ) return *itr;
+					if (m_pGameBoard->GetCellState(*itr) == m_HumanPiece) break;
+					else if ( m_pGameBoard->GetCellState( *itr ) == GameBoard::EMPTY ) return *itr;
 				}
 			}
 		}
