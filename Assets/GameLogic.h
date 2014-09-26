@@ -48,8 +48,6 @@ private:
 
 	void MovementInput();
 	GameWinner CheckPiecesOnBoard();		// Evaluate the state of the board for a possible winner
-
-	GameBoard::CellState SetComputerPlayerPiece();
 	
 
 public:
@@ -57,9 +55,9 @@ public:
 // Public Member Variables
 	GameBoard				gameBoard;				// Game board object instance
 	GameBoard::CellState	playerPiece;
-	GameBoard::CellState	computerPlayerPiece;
 	GameBoard::Player		player;
-	GameBoard::Player		startingPlayer;
+	GameBoard::Player		startingPlayer = player;
+	GameBoard::CellState	computerPlayerPiece;
 	int						cursorX;				// Cursor X position on the board
 	int						cursorY;				// cursor Y position on the board
 	bool					wasKeyPressedLastFrame;	// holds the state of if the keyboard key was previously pressed

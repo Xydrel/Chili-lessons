@@ -3,6 +3,11 @@
 #include <ctime>
 
 
+AI::AI(GameBoard* gameBoard, GameBoard::CellState* computerPlayerPiece)
+	: m_pGameBoard(gameBoard)
+	, m_playPiece( *computerPlayerPiece )
+{}
+
 /// <summary>
 /// When called, sets the computer player piece to X
 ///	</summary>
@@ -66,12 +71,12 @@ void AI::SetPlayPieceOnBoard(int& index)
 /// <summary>
 /// Sets the value of the human player piece to the opposite of the computer piece
 /// </summary>
-GameBoard::CellState AI::SetHumanPlayerPiece(GameBoard::CellState& computerPlayerPiece)
+void AI::SetPlayerPieces(GameBoard::CellState& computerPlayerPiece)
 {
-	if (computerPlayerPiece == GameBoard::CellState::O) return GameBoard::CellState::X;
-	else if (computerPlayerPiece == GameBoard::CellState::X) return GameBoard::CellState::O;
+	m_playPiece = computerPlayerPiece;
 
-	return GameBoard::CellState::EMPTY;
+	if (m_playPiece == GameBoard::CellState::O) m_HumanPiece = GameBoard::CellState::X;
+	else if (m_playPiece == GameBoard::CellState::X) m_HumanPiece = GameBoard::CellState::O;
 }
 
 int AI::EvaluateGameBoard()
@@ -190,9 +195,15 @@ int AI::PlayBestPositions()
 /// Function will perform determination on which cell to place
 /// the computer player piece on. Computer player piece is O.
 ///</summary>
-void AI::GetAIPlayCell()
+void AI::GetAIPlayCell(GameBoard::CellState& computerPlayerPiece)
 {
 	Sleep( 500 );
+
+	if (m_playPiece != GameBoard::O ||
+		m_playPiece != GameBoard::X )
+	{
+		SetPlayerPieces(computerPlayerPiece);
+	}
 
 	int AICellDecision = NULL;
 

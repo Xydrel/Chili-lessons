@@ -13,8 +13,7 @@ GameLogic::GameLogic( D3DGraphics* gfx, KeyboardClient* kbdClient )
 	, wasKeyPressedLastFrame( false )
 	, playerPiece( gameBoard.X )
 	, player( gameBoard.SetStartingPlayer() )
-	, startingPlayer( player )
-	, computerPlayerPiece( SetComputerPlayerPiece() )
+	, computerPlayerPiece(gameBoard.SetComputerPlayerPiece(startingPlayer))
 	, m_gameOver( false )
 	, m_gameAI( new AI( &gameBoard, &computerPlayerPiece ) )
 	, m_DelayCounter( 0 )
@@ -107,14 +106,7 @@ void GameLogic::DrawCursor( int x, int y )
 	}
 }
 
-// --------------------------------------------------------------------------------
-GameBoard::CellState GameLogic::SetComputerPlayerPiece()
-{
-	if (startingPlayer == gameBoard.HUMAN) return gameBoard.O;
-	else if (startingPlayer == gameBoard.COMPUTER) return gameBoard.X;
 
-	return gameBoard.EMPTY;
-}
 
 // --------------------------------------------------------------------------------
 void GameLogic::EndTurn()
@@ -326,7 +318,7 @@ void GameLogic::MovementInput()
 				else
 				{
 					// use the game AI here to play the turn
-					m_gameAI->GetAIPlayCell();
+					m_gameAI->GetAIPlayCell(computerPlayerPiece);
 					EndTurn( );
 				}
 

@@ -13,27 +13,19 @@ class AI
 // ================================================
 // Public Member Constructor
 public:
-	AI(GameBoard* gameBoard, GameBoard::CellState* computerPlayerPiece)
-		: m_pGameBoard(gameBoard)
-		, m_playPiece(*computerPlayerPiece)
-		, m_HumanPiece(SetHumanPlayerPiece(*computerPlayerPiece))
-	{}
-
+	AI(GameBoard* gameBoard, GameBoard::CellState* computerPlayerPiece);
 	~AI() { if (m_pGameBoard) { delete m_pGameBoard; m_pGameBoard = NULL; } }
 	//~AI();
 
 	GameBoard::CellState SetAIPieceX();
 	GameBoard::CellState SetAIPieceO();
-	GameBoard::CellState SetHumanPiece();
-
 
 public:
-	void GetAIPlayCell();
+	void GetAIPlayCell(GameBoard::CellState& computerPlayerPiece);
 
 // ================================================
 // Protected Member Functions
 protected:
-	GameBoard::CellState AIPlayer = m_pGameBoard->O;
 	GameBoard::CellState m_playPiece;
 	GameBoard::CellState m_HumanPiece;
 
@@ -49,7 +41,7 @@ private:
 	int PlayAdjacentCellPosition();
 
 	void SetPlayPieceOnBoard(int& index);
-	GameBoard::CellState SetHumanPlayerPiece(GameBoard::CellState& computerPlayerPiece);
+	void SetPlayerPieces(GameBoard::CellState& computerPlayerPiece);
 
 // ================================================
 // Private Member Variables

@@ -88,3 +88,11 @@ int GameBoard::randomSelectPlayer()
 
 	return NULL;
 }
+
+GameBoard::CellState GameBoard::SetComputerPlayerPiece(GameBoard::Player& startingPlayer)
+{
+	if (startingPlayer == HUMAN) return O;
+	else if (startingPlayer == COMPUTER) return X;
+
+	return EMPTY;
+}
