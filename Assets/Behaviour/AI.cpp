@@ -76,11 +76,11 @@ int AI::EvaluateGameBoard()
 
 	std::list<std::vector<int>> SetList = { set1,set2,set3,set4,set5,set6,set7,set8 };
 
-	for ( std::list<std::vector<int>>::iterator lItr = SetList.begin(); lItr != SetList.end(); ++lItr )
+	for ( std::list<std::vector<int>>::const_iterator lItr = SetList.begin(); lItr != SetList.end(); ++lItr )
 	{
 		// now check for a winning move
 		int nonEmptyCounter = 0;
-		for ( std::vector<int>::iterator itr = lItr->begin( ); itr != lItr->end( ); ++itr )
+		for ( std::vector<int>::const_iterator itr = lItr->begin( ); itr != lItr->end( ); ++itr )
 		{
 			// if any two are equal, return index to the empty cell			
 			if ( m_pGameBoard->GetCellState( *itr ) == GameBoard::X ) nonEmptyCounter++;
@@ -88,7 +88,7 @@ int AI::EvaluateGameBoard()
 			// If we found two matching in the winning row, return the Empty cell index to stop winning move
 			if ( nonEmptyCounter >= 2 )
 			{
-				for ( std::vector<int>::iterator itr = lItr->begin( ); itr != lItr->end( ); ++itr )
+				for ( std::vector<int>::const_iterator itr = lItr->begin( ); itr != lItr->end( ); ++itr )
 				{
 					if ( m_pGameBoard->GetCellState( *itr) == GameBoard::EMPTY ) return *itr;
 				}
@@ -117,11 +117,11 @@ int AI::PlayAdjacentCellPosition()
 
 	// if we have a piece in one of these position, and an adjacent position is not blocked
 	// we want to place a piece to try to win.
-	for ( std::list<std::vector<int>>::iterator lItr = SetList.begin(); lItr != SetList.end(); ++lItr )
+	for ( std::list<std::vector<int>>::const_iterator lItr = SetList.begin( ); lItr != SetList.end( ); ++lItr )
 	{
 		// now check for a winning move
 		int nonEmptyCounter = 0;
-		for ( std::vector<int>::iterator itr = lItr->begin(); itr != lItr->end(); ++itr )
+		for ( std::vector<int>::const_iterator itr = lItr->begin( ); itr != lItr->end( ); ++itr )
 		{
 			// if any two are equal, return index to the empty cell
 			if ( m_pGameBoard->GetCellState( *itr ) == GameBoard::O ) nonEmptyCounter++;
@@ -129,7 +129,7 @@ int AI::PlayAdjacentCellPosition()
 			// If we found two matching in the winning row, return the Empty cell index to attempt a winning move
 			if ( nonEmptyCounter >= 2 )
 			{
-				for ( std::vector<int>::iterator itr = lItr->begin(); itr != lItr->end(); ++itr )
+				for ( std::vector<int>::const_iterator itr = lItr->begin( ); itr != lItr->end( ); ++itr )
 				{
 					if ( m_pGameBoard->GetCellState( *itr ) == GameBoard::EMPTY ) return *itr;
 				}
