@@ -31,8 +31,7 @@ public:
 	~D3DGraphics();
 
 	void PutPixel( int x, int y, int r, int g, int b );
-	void DrawLine( float x1, float x2, float y1, float y2, int r, int g, int bl );
-	void DrawCircle( float cx, float cy, float rad, int r, int g, int b );
+
 
 	void BeginFrame();
 	void EndFrame();

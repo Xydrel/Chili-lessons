@@ -22,6 +22,7 @@
 
 #include "D3DGraphics.h"
 #include "Keyboard.h"
+#include <vector>
 
 class Game
 {
@@ -33,7 +34,9 @@ private:
 	/********************************/
 	/*  User Functions              */
 
-	// TODO: User functions go here
+	void DrawFace( int x, int y);
+	void DrawPoo( int x, int y);
+	void DrawGameOver(int x, int y);
 
 	/********************************/
 private:
@@ -42,9 +45,16 @@ private:
 	/********************************/
 	/*  User Variables              */
 
-	// TODO: User variables go here
-	int x;
-	int y;
+	int framesCounter;
+
+	int faceX;
+	int faceY;
+
+	int pooX[3];
+	int pooY[3];
+
+	bool gameOver;
+	bool pooIsEaten[3];
 
 	/********************************/
 };
