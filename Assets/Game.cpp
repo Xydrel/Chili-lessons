@@ -27,12 +27,14 @@ Game::Game( HWND hWnd,const KeyboardServer& kServer )
 	kbd( kServer ),
 	gameOver(false),
 	framesCounter( 0 ),
+	framesTillNewPooDraw( 200 ),
 	faceX( 390 ),
-	faceY( 290 )
+	faceY( 290 ),
+	nPoo( NPOO )
 {
 	srand( (unsigned int)time( NULL ) );
 
-	for ( int index = 0; index < 3; index++ )
+	for ( int index = 0; index < nPoo; index++ )
 	{
 		pooX[index] = rand() % ( 800 - 24 );
 		pooY[index] = rand() % ( 600 - 24 );
@@ -2700,63 +2702,53 @@ void Game::DrawGameOver( int x, int y)
 
 void Game::ComposeFrame()
 {
-
 	int speed = 2;
+	if ( kbd.SpaceIsPressed() )
+	{
+		speed = 5;
+	}
+
 	if (kbd.RightIsPressed())
 	{
-		if ( kbd.SpaceIsPressed() )
-		{
-			faceX = speed + faceX++;
-		}
-		else
-		{
-			faceX++;
-		}
+		faceX = faceX + speed;
 	}
-
 	if (kbd.LeftIsPressed())
 	{
-		if ( kbd.SpaceIsPressed() )
-		{
-			faceX = speed - faceX--;
-		}
-		else
-		{
-			faceX--;
-		}
+		faceX = faceX - speed;
 	}
-
-	if (kbd.UpIsPressed())
+	if ( kbd.UpIsPressed() )
 	{
-		if ( kbd.SpaceIsPressed() )
-		{
-			faceY = speed - faceY--;
-		}
-		else
-		{
-			faceY--;
-		}
+		faceY = faceY - speed;
 	}
-
 	if (kbd.DownIsPressed())
 	{
-		if ( kbd.SpaceIsPressed() )
-		{
-			faceY = speed + faceY++;
-		}
-		else
-		{
-			faceY++;
-		}
+		faceY = faceY + speed;
+	}
+	
+	if ( faceX < 0)
+	{
+		faceX = 0;
+	}
+	if ( faceX + 20 > 800)
+	{
+		faceX = 800 - 20;
+	}
+	if ( faceY < 0)
+	{
+		faceY = 0;
+	}
+	if ( faceX + 20 > 600)
+	{
+		faceY = 600 - 20;
 	}
 
 	bool allPooEaten = true;
-	for ( int index = 0; index <= 3; index++ )
+	for ( int index = 0; index <= nPoo; index++ )
 	{
 		allPooEaten = allPooEaten && pooIsEaten[index];
 	}
 
-	for ( int index = 0; index <= 3; index++ )
+	for ( int index = 0; index <= nPoo; index++ )
 	{
 		if (!allPooEaten)
 		{

@@ -24,11 +24,15 @@
 #include "Keyboard.h"
 #include <vector>
 
+#define NPOO 15
+
 class Game
 {
 public:
 	Game( HWND hWnd,const KeyboardServer& kServer );
+
 	void Go();
+
 private:
 	void ComposeFrame();
 	/********************************/
@@ -46,15 +50,18 @@ private:
 	/*  User Variables              */
 
 	int framesCounter;
+	int framesTillNewPooDraw;
 
 	int faceX;
 	int faceY;
 
-	int pooX[3];
-	int pooY[3];
+	int nPoo;							// An int to store the number of poo on the screen
+
+	int pooX[NPOO];
+	int pooY[NPOO];
+	bool pooIsEaten[NPOO];
 
 	bool gameOver;
-	bool pooIsEaten[3];
 
 	/********************************/
 };
