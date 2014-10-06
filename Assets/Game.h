@@ -42,6 +42,8 @@ private:
 	void DrawPoo( int x, int y);
 	void DrawGameOver(int x, int y);
 
+	void SetNewPoo();					// increase the number of total poo tobe drawn on the screen
+
 	/********************************/
 private:
 	D3DGraphics gfx;

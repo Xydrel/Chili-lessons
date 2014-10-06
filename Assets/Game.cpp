@@ -39,7 +39,6 @@ Game::Game( HWND hWnd,const KeyboardServer& kServer )
 		pooX[index] = rand() % ( 800 - 24 );
 		pooY[index] = rand() % ( 600 - 24 );
 		pooIsEaten[index] = false;
-		//DrawPoo( pooX[index], pooY[index] );
 	}
 }
 
@@ -2700,12 +2699,24 @@ void Game::DrawGameOver( int x, int y)
 
 }
 
+void Game::SetNewPoo( )
+{
+	nPoo++;
+	srand( ( unsigned int )time( NULL ) );
+	pooX[nPoo] = rand() % (800 - 24);
+	pooY[nPoo] = rand() % (600 - 24);
+}
+
 void Game::ComposeFrame()
 {
 	int speed = 2;
 	if ( kbd.SpaceIsPressed() )
 	{
 		speed = 5;
+	}
+	if ( kbd.EnterIsPressed() )
+	{
+		speed = 8;
 	}
 
 	if (kbd.RightIsPressed())
@@ -2725,27 +2736,40 @@ void Game::ComposeFrame()
 		faceY = faceY + speed;
 	}
 	
+	// prevent the drawn face from exceeding the screen size
 	if ( faceX < 0)
 	{
 		faceX = 0;
 	}
-	if ( faceX + 20 > 800)
+	if ( faceX + 24 > 800)
 	{
-		faceX = 800 - 20;
+		faceX = 800 - 24;
 	}
 	if ( faceY < 0)
 	{
 		faceY = 0;
 	}
-	if ( faceX + 20 > 600)
+	if ( faceX + 24 > 600 )
 	{
-		faceY = 600 - 20;
+		faceY = 600 - 24;
 	}
 
+	// check if it's time to draw a new poo
+	if ( framesTillNewPooDraw <= 0)
+	{
+		SetNewPoo();
+		framesTillNewPooDraw = 200;
+	}
+
+	// countdown till new poo drawn
+	framesTillNewPooDraw--;
+
+	// check if we should keep playing or end the game
 	bool allPooEaten = true;
 	for ( int index = 0; index <= nPoo; index++ )
 	{
 		allPooEaten = allPooEaten && pooIsEaten[index];
+		if ( allPooEaten == false ) break;
 	}
 
 	for ( int index = 0; index <= nPoo; index++ )
@@ -2757,9 +2781,9 @@ void Game::ComposeFrame()
 			if (!pooIsEaten[index])
 			{
 				if ( faceX + 20 > pooX[index] &&
-						faceX < pooX[index] + 24 &&
-						faceY + 20 > pooY[index] &&
-						faceY < pooY[index] + 24   )
+					 faceX < pooX[index] + 24 &&
+					 faceY + 20 > pooY[index] &&
+					 faceY < pooY[index] + 24   )
 				{
 					pooIsEaten[index] = true;
 				}
@@ -2771,13 +2795,16 @@ void Game::ComposeFrame()
 		}
 		else
 		{
-			gameOver = true;
 			framesCounter++;
 			if ( framesCounter >= 360 )
 			{
 				exit( 0 );
 			}
-			DrawGameOver( 375, 275 );
+			gameOver = true;
+			if ( gameOver )
+			{
+				DrawGameOver( 375, 275 );
+			}
 		}
 	}
 }
