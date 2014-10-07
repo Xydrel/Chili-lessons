@@ -3,6 +3,11 @@
 #include <ctime>
 
 
+AI::AI(GameBoard* gameBoard, GameBoard::CellState* computerPlayerPiece)
+	: m_pGameBoard(gameBoard)
+	, m_playPiece( *computerPlayerPiece )
+{}
+
 /// <summary>
 /// When called, sets the computer player piece to X
 ///	</summary>
@@ -58,8 +63,20 @@ void AI::SetPlayPieceOnBoard(int& index)
 	if ( index > -1 && 
 		 index < 10 )
 	{
-		m_pGameBoard->SetCellState( index, m_pGameBoard->O );
+		m_pGameBoard->SetCellState( index, m_playPiece );
 	}
+}
+
+
+/// <summary>
+/// Sets the value of the human player piece to the opposite of the computer piece
+/// </summary>
+void AI::SetPlayerPieces(GameBoard::CellState& computerPlayerPiece)
+{
+	m_playPiece = computerPlayerPiece;
+
+	if (m_playPiece == GameBoard::CellState::O) m_HumanPiece = GameBoard::CellState::X;
+	else if (m_playPiece == GameBoard::CellState::X) m_HumanPiece = GameBoard::CellState::O;
 }
 
 int AI::EvaluateGameBoard()
@@ -83,14 +100,14 @@ int AI::EvaluateGameBoard()
 		for ( std::vector<int>::const_iterator itr = lItr->begin( ); itr != lItr->end( ); ++itr )
 		{
 			// if any two are equal, return index to the empty cell			
-			if ( m_pGameBoard->GetCellState( *itr ) == GameBoard::X ) nonEmptyCounter++;
+			if ( m_pGameBoard->GetCellState( *itr ) == m_HumanPiece ) nonEmptyCounter++;
 
 			// If we found two matching in the winning row, return the Empty cell index to stop winning move
 			if ( nonEmptyCounter >= 2 )
 			{
 				for ( std::vector<int>::const_iterator itr = lItr->begin( ); itr != lItr->end( ); ++itr )
 				{
-					if ( m_pGameBoard->GetCellState( *itr) == GameBoard::EMPTY ) return *itr;
+					if ( m_pGameBoard->GetCellState( *itr ) == GameBoard::EMPTY ) return *itr;
 				}
 			}
 		}
@@ -124,14 +141,15 @@ int AI::PlayAdjacentCellPosition()
 		for ( std::vector<int>::const_iterator itr = lItr->begin( ); itr != lItr->end( ); ++itr )
 		{
 			// if any two are equal, return index to the empty cell
-			if ( m_pGameBoard->GetCellState( *itr ) == GameBoard::O ) nonEmptyCounter++;
+			if ( m_pGameBoard->GetCellState( *itr ) == m_playPiece ) nonEmptyCounter++;
 
 			// If we found two matching in the winning row, return the Empty cell index to attempt a winning move
 			if ( nonEmptyCounter >= 2 )
 			{
 				for ( std::vector<int>::const_iterator itr = lItr->begin( ); itr != lItr->end( ); ++itr )
 				{
-					if ( m_pGameBoard->GetCellState( *itr ) == GameBoard::EMPTY ) return *itr;
+					if (m_pGameBoard->GetCellState(*itr) == m_HumanPiece) break;
+					else if ( m_pGameBoard->GetCellState( *itr ) == GameBoard::EMPTY ) return *itr;
 				}
 			}
 		}
@@ -148,27 +166,20 @@ int AI::PlayBestPositions()
 	int i = 0x00;
 	int boardCellIndex = NULL;
 
-	if ( m_pGameBoard->GetCellState( 4 ) == GameBoard::EMPTY )
+	std::vector<int> startingPositions = { 2,4,6,8,0 };
+	for ( std::vector<int>::iterator itr = startingPositions.begin(); itr != startingPositions.end(); ++itr )
 	{
-		return 4;
+		if ( m_pGameBoard->GetCellState( *itr ) == GameBoard::EMPTY ) count++;
+	}
+
+	if ( count != NULL )
+	{
+		boardCellIndex = GetRandomIndex( count );
+		return boardCellIndex;
 	}
 	else
 	{
-		std::vector<int> startingPositions = { 2,6,8,0 };
-		for ( std::vector<int>::iterator itr = startingPositions.begin(); itr != startingPositions.end(); ++itr )
-		{
-			if ( m_pGameBoard->GetCellState( *itr ) == GameBoard::EMPTY ) count++;
-		}
-
-		if ( count != NULL )
-		{
-			boardCellIndex = GetRandomIndex( count );
-			return boardCellIndex;
-		}
-		else
-		{
-			return boardCellIndex;
-		}
+		return boardCellIndex;
 	}
 	
 	return -1;
@@ -178,9 +189,15 @@ int AI::PlayBestPositions()
 /// Function will perform determination on which cell to place
 /// the computer player piece on. Computer player piece is O.
 ///</summary>
-void AI::GetAIPlayCell()
+void AI::GetAIPlayCell(GameBoard::CellState& computerPlayerPiece)
 {
 	Sleep( 500 );
+
+	if (m_playPiece != GameBoard::O ||
+		m_playPiece != GameBoard::X )
+	{
+		SetPlayerPieces(computerPlayerPiece);
+	}
 
 	int AICellDecision = NULL;
 

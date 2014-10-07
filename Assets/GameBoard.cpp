@@ -1,6 +1,9 @@
 
 #include "GameBoard.h"
 
+#include <time.h>
+#include<algorithm>
+
 // --------------------------------------------------------------------------------
 GameBoard::GameBoard()
 {
@@ -8,22 +11,11 @@ GameBoard::GameBoard()
 	{
 		SetCellState( index, EMPTY );
 	}
-
-	//gb = new GameBoard();
-
-	// Temp Code to draw player pieces
-	//SetCellState( 0, 0, X );
-	//SetCellState( 1, 1, O );
 }
 
 // --------------------------------------------------------------------------------
 GameBoard::~GameBoard()
 {
-	//if ( gb )
-	//{
-	//	delete gb;
-	//	gb = NULL;
-	//}
 }
 
 // --------------------------------------------------------------------------------
@@ -76,4 +68,31 @@ GameBoard::CellState GameBoard::GetCellState( int ix, int iy )
 	return GetCellState( index );
 }
 
+GameBoard::Player GameBoard::SetStartingPlayer()
+{
+	int selection = randomSelectPlayer();
+	if ( selection == 0 ) curPlayer = HUMAN;
+	else if ( selection == 1 ) curPlayer = COMPUTER;
 
+	return curPlayer;
+}
+
+int GameBoard::randomSelectPlayer()
+{
+	srand( time( NULL ) );
+
+	unsigned int result = rand() % 100;
+
+	if ( result <= 49 ) return 0;
+	else if ( result >= 50 ) return 1;
+
+	return NULL;
+}
+
+GameBoard::CellState GameBoard::SetComputerPlayerPiece(GameBoard::Player& startingPlayer)
+{
+	if (startingPlayer == HUMAN) return O;
+	else if (startingPlayer == COMPUTER) return X;
+
+	return EMPTY;
+}

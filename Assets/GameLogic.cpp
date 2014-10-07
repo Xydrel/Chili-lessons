@@ -11,9 +11,11 @@ GameLogic::GameLogic( D3DGraphics* gfx, KeyboardClient* kbdClient )
 	, m_circlePlayer()
 	, m_xplayer()
 	, wasKeyPressedLastFrame( false )
-	, player( gameBoard.playerA )
+	, playerPiece( gameBoard.X )
+	, player( gameBoard.SetStartingPlayer() )
+	, computerPlayerPiece(gameBoard.SetComputerPlayerPiece(startingPlayer))
 	, m_gameOver( false )
-	, m_gameAI( new AI( &gameBoard ) )
+	, m_gameAI( new AI( &gameBoard, &computerPlayerPiece ) )
 	, m_DelayCounter( 0 )
 {}
 
@@ -104,23 +106,23 @@ void GameLogic::DrawCursor( int x, int y )
 	}
 }
 
+
+
 // --------------------------------------------------------------------------------
 void GameLogic::EndTurn()
 {
-	if ( player == gameBoard.playerA )
+	if ( playerPiece == gameBoard.X )
 	{
-		player = gameBoard.playerB;
+		playerPiece = gameBoard.O;
+		if (player == gameBoard.HUMAN) player = gameBoard.COMPUTER;
+		else if (player == gameBoard.COMPUTER) player = gameBoard.HUMAN;
 	}
-	else if ( player == gameBoard.playerB )
+	else if (playerPiece == gameBoard.O)
 	{
-		player = gameBoard.playerA;
+		playerPiece = gameBoard.X;
+		if (player == gameBoard.HUMAN) player = gameBoard.COMPUTER;
+		else if (player == gameBoard.COMPUTER) player = gameBoard.HUMAN;
 	}
-}
-
-// --------------------------------------------------------------------------------
-void GameLogic::DoUserInput()
-{
-
 }
 
 // --------------------------------------------------------------------------------
@@ -246,7 +248,7 @@ void GameLogic::MovementInput()
 		{
 			DrawGameResults( 355, 500 );
 
-			int maxFramesBeforeExit = 360;
+			unsigned int maxFramesBeforeExit = 360;
 			if ( m_DelayCounter >= maxFramesBeforeExit ) { exit( 0 ); }
 			else { m_DelayCounter++; }
 		}
@@ -304,19 +306,19 @@ void GameLogic::MovementInput()
 
 			if ( !m_gameOver )
 			{
-				if ( player != GameBoard::O )
+				if ( player != GameBoard::COMPUTER )
 				{
 					if ( m_Keyboardclient->EnterIsPressed() &&
 						 gameBoard.GetCellState( cursorX, cursorY ) == GameBoard::EMPTY)
 					{
-						gameBoard.SetCellState( cursorX, cursorY, player );
+						gameBoard.SetCellState(cursorX, cursorY, playerPiece);
 						EndTurn( );
 					}
 				}
 				else
 				{
 					// use the game AI here to play the turn
-					m_gameAI->GetAIPlayCell();
+					m_gameAI->GetAIPlayCell(computerPlayerPiece);
 					EndTurn( );
 				}
 

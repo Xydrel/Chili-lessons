@@ -22,6 +22,14 @@ public:
 protected:
 	GameBoard* gb;
 
+
+// =================================================
+// Protected Member Function
+protected:
+	int randomSelectPlayer();
+
+
+
 // =================================================
 // Public Member Variables
 public:
@@ -32,14 +40,22 @@ public:
 		O,
 	};
 
+	enum Player
+	{
+		HUMAN,
+		COMPUTER,
+	};
+
+	Player SetStartingPlayer();
 	CellState playerA = X;
 	CellState playerB = O;
 
 	// debug set player to X
-	CellState curPlayer;
+	Player curPlayer;
 
 // =================================================
 // Public Member Functions
+	GameBoard::CellState GameBoard::SetComputerPlayerPiece(GameBoard::Player& startingPlayer);
 	void SetCellState( int index, CellState state );		// Set Cell state by flat index
 	void SetCellState( int ix, int iy, CellState state );	// set cell state by row index
 	CellState GetCellState( int index );					// Get Cell state by flat index
