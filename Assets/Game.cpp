@@ -25,28 +25,29 @@
 Game::Game( HWND hWnd,const KeyboardServer& kServer )
 	: gfx ( hWnd )
 	, kbd( kServer )
-	, gameOver(false)
-	, framesCounter( 0 )
-	, framesTillNewPooDraw( 200 )
+	, gameIsOver( false )
+	, framesCounter( FRAMECOUNT )
 	, faceX( 390 )
 	, faceY( 290 )
-	, nPoo( NPOO )
+	, nPoo( 3 )
 {
 	srand( (unsigned int)time( NULL ) );
 
-	for ( int index = 0; index < nPoo; index++ )
+	for ( int index = 0; index < NPOO; index++ )
 	{
-		pooX[index] = rand() % ( 800 ) - 24;
-		pooY[index] = rand() % ( 600 ) - 24;
-		pooIsEaten[index] = false;
+		pooX[index] = rand() % (800 - 24);
+		pooY[index] = rand() % (600 - 24);
+		pooXVelocity[index] = (rand( ) % 8001) / 1000.0f - 4.0f;
+		pooYVelocity[index] = (rand( ) % 8001) / 1000.0f - 4.0f;
 	}
+
+	ResetGoal();
 }
 
 void Game::Go()
 {
 	UpdateFace();
 	UpdatePoo();
-	CheckGameOverState();
 
 	gfx.BeginFrame();
 	ComposeFrame();
@@ -2703,20 +2704,12 @@ void Game::DrawGameOver( int x, int y)
 
 }
 
-void Game::SetNewPoo( )
-{
-	nPoo++;
-	//srand( ( unsigned int )time( NULL ) );
-	//pooX[nPoo] = rand() % (800 - 24);
-	//pooY[nPoo] = rand() % (600 - 24);
-}
-
 void Game::UpdateFace()
 {
-	int speed = 2;
+	int speed = 5;
 	if ( kbd.SpaceIsPressed() )
 	{
-		speed = 5;
+		speed = 8;
 	}
 	if ( kbd.EnterIsPressed() )
 	{
@@ -2757,62 +2750,69 @@ void Game::UpdateFace()
 	{
 		faceY = 600 - 24;
 	}
+
+	if ( sqrt( ( float )((faceX + 10) - goalX)*((faceX + 10) - goalX) + 
+		 ((faceY + 10) - goalY)*((faceY + 10) - goalY) ) < 10 + GOALRAD )
+	{
+		ResetGoal();
+	}
 }
 
 void Game::UpdatePoo()
 {
-	// countdown till new poo drawn
-	framesTillNewPooDraw--;
-
-	// check if we should keep playing or end the game
-	allPooIsEaten = true;
-	for ( int index = 0; index < nPoo; index++ )
-	{
-		allPooIsEaten = allPooIsEaten && pooIsEaten[index];
-		if ( allPooIsEaten == false ) break;
-	}
-
-	// check if it's time to draw a new poo
-	if ( framesTillNewPooDraw == 0)
-	{
-		SetNewPoo();
-		framesTillNewPooDraw = 200;
-	}
+	int speedLottery = rand() % 200;
 
 	for ( int index = 0; index < nPoo; index++ )
 	{
-		if (!pooIsEaten[index])
+		if ( !gameIsOver )
 		{
-			if ( faceX + 20 > pooX[index] &&
-				 faceX < pooX[index] + 24 &&
-				 faceY + 20 > pooY[index] &&
-				 faceY < pooY[index] + 24   )
+			if ( index == speedLottery )
 			{
-				pooIsEaten[index] = true;
+				pooXVelocity[index] = (rand() % 8001) / 1000.0f - 4.0f;
+				pooYVelocity[index] = (rand() % 8001) / 1000.0f - 4.0f;
+			}
+
+			pooX[index] += pooXVelocity[index];
+			pooY[index] += pooXVelocity[index];
+
+			if ( pooX[index] < 0 )
+			{
+				pooX[index] = 0;
+				pooXVelocity[index] = -pooXVelocity[index];
+			}
+			else if ( (pooX[index] + 24) > 799 )
+			{
+				pooX[index] = 799 - 24;
+				pooXVelocity[index] = -pooXVelocity[index];
+			}
+
+			if ( pooY[index] < 0 )
+			{
+				pooY[index] = 0;
+				pooYVelocity[index] = -pooYVelocity[index];
+			}
+			else if ( (pooY[index] + 24) > 599 )
+			{
+				pooY[index] = 599 - 24;
+				pooYVelocity[index] = -pooYVelocity[index];
+			}
+
+			if ( (faceX + 20) > pooX[index] &&
+				 faceX < (pooX[index] + 24) &&
+				 (faceY + 20) > pooY[index] &&
+				 faceY < (pooY[index] + 24)   )
+			{
+				gameIsOver = true;
 			}
 		}
 	}
 }
 
-void Game::CheckGameOverState()
-{
-	if ( nPoo >= 100 )
-	{
-		// player looses
-		gameOver = true;
-	}
-
-	if ( allPooIsEaten )
-	{
-		// player wins
-		gameOver = true;
-	}
-}
 
 void Game::ExitGame()
 {
 	framesCounter++;
-	if ( framesCounter >= 360 )
+	if ( framesCounter >= 64 )
 	{
 		exit( 0 );
 	}
@@ -2820,19 +2820,33 @@ void Game::ExitGame()
 
 void Game::ComposeFrame()
 {
-	DrawFace( faceX, faceY );
-
-	for ( int index = 0; index < nPoo; index++ )
+	if ( !gameIsOver )
 	{
-		if (!pooIsEaten[ index ])
+		gfx.DrawDisc( goalX, goalY, GOALRAD, 255, 255, 0 );
+
+		for ( int index = 0; index < nPoo; index++ )
 		{
 			DrawPoo( pooX[index], pooY[index] );
 		}
-	}
 
-	if ( gameOver )
+		DrawFace( faceX, faceY );
+	}
+	else
 	{
 		DrawGameOver( 375, 275 );
-		ExitGame();
+		ExitGame();	
+	}
+}
+
+void Game::ResetGoal()
+{
+	goalX = rand() % (799 - (GOALRAD * 2)) + GOALRAD;
+	goalY = rand() % (599 - (GOALRAD * 2)) + GOALRAD;
+	nPoo += 1;
+
+	if ( nPoo > NPOO )
+	{
+		nPoo = NPOO;
+		gameIsOver = true;
 	}
 }

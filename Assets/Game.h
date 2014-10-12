@@ -24,7 +24,9 @@
 #include "Keyboard.h"
 #include <vector>
 
-#define NPOO 15
+#define NPOO		1000  // Max number of poo
+#define GOALRAD		10	  // Const radius of the disc
+#define FRAMECOUNT	0	  // Starting frame count init value
 
 class Game
 {
@@ -35,42 +37,32 @@ public:
 
 private:
 	void ComposeFrame();
-	/********************************/
-	/*  User Functions              */
 
-	void DrawFace( int x, int y);
-	void DrawPoo( int x, int y);
-	void DrawGameOver(int x, int y);
+	void DrawFace( int x, int y );
+	void DrawPoo( int x, int y );
+	void DrawGameOver( int x, int y );
+	void ResetGoal();
 
 	void UpdateFace();
 	void UpdatePoo();
-	void CheckGameOverState();
 	void ExitGame();
 
-	void SetNewPoo();					// increase the number of total poo tobe drawn on the screen
-
-	/********************************/
 private:
 	D3DGraphics gfx;
 	KeyboardClient kbd;
-	/********************************/
-	/*  User Variables              */
 
-	int framesCounter;
-	int framesTillNewPooDraw;
+	bool	gameIsOver;
 
-	bool allPooIsEaten;
+	int		framesCounter;
 
-	int faceX;
-	int faceY;
+	int		faceX;
+	int		faceY;
+	int		nPoo;							// An int to store the number of poo on the screen
+	int		goalX;
+	int		goalY;
 
-	int nPoo;							// An int to store the number of poo on the screen
-
-	int pooX[NPOO];
-	int pooY[NPOO];
-	bool pooIsEaten[NPOO];
-
-	bool gameOver;
-
-	/********************************/
+	float	pooX[NPOO];
+	float	pooY[NPOO];
+	float	pooXVelocity[NPOO];
+	float	pooYVelocity[NPOO];
 };
