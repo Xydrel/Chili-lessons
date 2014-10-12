@@ -29,14 +29,19 @@ D3DGraphics::D3DGraphics( HWND hWnd )
 
     D3DPRESENT_PARAMETERS d3dpp;
     ZeroMemory( &d3dpp,sizeof( d3dpp ) );
-    d3dpp.Windowed = TRUE;
-    d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
-    d3dpp.BackBufferFormat = D3DFMT_UNKNOWN;
-	d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_ONE;
-	d3dpp.Flags = D3DPRESENTFLAG_LOCKABLE_BACKBUFFER;
 
-    pDirect3D->CreateDevice( D3DADAPTER_DEFAULT,D3DDEVTYPE_HAL,hWnd,
-		D3DCREATE_HARDWARE_VERTEXPROCESSING | D3DCREATE_PUREDEVICE,&d3dpp,&pDevice );
+    d3dpp.Windowed			   = TRUE;
+    d3dpp.SwapEffect		   = D3DSWAPEFFECT_DISCARD;
+    d3dpp.BackBufferFormat	   = D3DFMT_UNKNOWN;
+	d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_ONE;
+	d3dpp.Flags				   = D3DPRESENTFLAG_LOCKABLE_BACKBUFFER;
+
+    pDirect3D->CreateDevice( D3DADAPTER_DEFAULT,
+							 D3DDEVTYPE_HAL,
+							 hWnd,
+							 D3DCREATE_HARDWARE_VERTEXPROCESSING | D3DCREATE_PUREDEVICE,
+							 &d3dpp,
+							 &pDevice );
 
 	pDevice->GetBackBuffer( 0, 0, D3DBACKBUFFER_TYPE_MONO, &pBackBuffer );
 }
@@ -62,9 +67,9 @@ D3DGraphics::~D3DGraphics()
 
 void D3DGraphics::DrawDisc( int cx, int cy, int rad, int r, int g, int b )
 {
-	for ( int x = cx - rad; x < cx + rad; ++x )
+	for ( int x = cx - rad; x < cx + rad; x++ )
 	{
-		for ( int y = cy - rad; y < cy + rad; ++y )
+		for ( int y = cy - rad; y < cy + rad; y++ )
 		{
 			if ( sqrt( ( float )(x - cx)*(x - cx) + (y - cy)*(y - cy) ) < rad )
 			{
