@@ -42,6 +42,11 @@ private:
 	void DrawPoo( int x, int y);
 	void DrawGameOver(int x, int y);
 
+	void UpdateFace();
+	void UpdatePoo();
+	void CheckGameOverState();
+	void ExitGame();
+
 	void SetNewPoo();					// increase the number of total poo tobe drawn on the screen
 
 	/********************************/
@@ -53,6 +58,8 @@ private:
 
 	int framesCounter;
 	int framesTillNewPooDraw;
+
+	bool allPooIsEaten;
 
 	int faceX;
 	int faceY;

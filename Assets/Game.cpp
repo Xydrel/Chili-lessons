@@ -23,27 +23,31 @@
 #include <stdlib.h>
 
 Game::Game( HWND hWnd,const KeyboardServer& kServer )
-:	gfx ( hWnd ),
-	kbd( kServer ),
-	gameOver(false),
-	framesCounter( 0 ),
-	framesTillNewPooDraw( 200 ),
-	faceX( 390 ),
-	faceY( 290 ),
-	nPoo( NPOO )
+	: gfx ( hWnd )
+	, kbd( kServer )
+	, gameOver(false)
+	, framesCounter( 0 )
+	, framesTillNewPooDraw( 200 )
+	, faceX( 390 )
+	, faceY( 290 )
+	, nPoo( NPOO )
 {
 	srand( (unsigned int)time( NULL ) );
 
 	for ( int index = 0; index < nPoo; index++ )
 	{
-		pooX[index] = rand() % ( 800 - 24 );
-		pooY[index] = rand() % ( 600 - 24 );
+		pooX[index] = rand() % ( 800 ) - 24;
+		pooY[index] = rand() % ( 600 ) - 24;
 		pooIsEaten[index] = false;
 	}
 }
 
 void Game::Go()
 {
+	UpdateFace();
+	UpdatePoo();
+	CheckGameOverState();
+
 	gfx.BeginFrame();
 	ComposeFrame();
 	gfx.EndFrame();
@@ -2702,12 +2706,12 @@ void Game::DrawGameOver( int x, int y)
 void Game::SetNewPoo( )
 {
 	nPoo++;
-	srand( ( unsigned int )time( NULL ) );
-	pooX[nPoo] = rand() % (800 - 24);
-	pooY[nPoo] = rand() % (600 - 24);
+	//srand( ( unsigned int )time( NULL ) );
+	//pooX[nPoo] = rand() % (800 - 24);
+	//pooY[nPoo] = rand() % (600 - 24);
 }
 
-void Game::ComposeFrame()
+void Game::UpdateFace()
 {
 	int speed = 2;
 	if ( kbd.SpaceIsPressed() )
@@ -2749,62 +2753,86 @@ void Game::ComposeFrame()
 	{
 		faceY = 0;
 	}
-	if ( faceX + 24 > 600 )
+	if ( faceY + 24 > 600 )
 	{
 		faceY = 600 - 24;
 	}
+}
+
+void Game::UpdatePoo()
+{
+	// countdown till new poo drawn
+	framesTillNewPooDraw--;
+
+	// check if we should keep playing or end the game
+	allPooIsEaten = true;
+	for ( int index = 0; index < nPoo; index++ )
+	{
+		allPooIsEaten = allPooIsEaten && pooIsEaten[index];
+		if ( allPooIsEaten == false ) break;
+	}
 
 	// check if it's time to draw a new poo
-	if ( framesTillNewPooDraw <= 0)
+	if ( framesTillNewPooDraw == 0)
 	{
 		SetNewPoo();
 		framesTillNewPooDraw = 200;
 	}
 
-	// countdown till new poo drawn
-	framesTillNewPooDraw--;
-
-	// check if we should keep playing or end the game
-	bool allPooEaten = true;
-	for ( int index = 0; index <= nPoo; index++ )
+	for ( int index = 0; index < nPoo; index++ )
 	{
-		allPooEaten = allPooEaten && pooIsEaten[index];
-		if ( allPooEaten == false ) break;
+		if (!pooIsEaten[index])
+		{
+			if ( faceX + 20 > pooX[index] &&
+				 faceX < pooX[index] + 24 &&
+				 faceY + 20 > pooY[index] &&
+				 faceY < pooY[index] + 24   )
+			{
+				pooIsEaten[index] = true;
+			}
+		}
+	}
+}
+
+void Game::CheckGameOverState()
+{
+	if ( nPoo >= 100 )
+	{
+		// player looses
+		gameOver = true;
 	}
 
-	for ( int index = 0; index <= nPoo; index++ )
+	if ( allPooIsEaten )
 	{
-		if (!allPooEaten)
-		{
-			DrawFace( faceX, faceY );
+		// player wins
+		gameOver = true;
+	}
+}
 
-			if (!pooIsEaten[index])
-			{
-				if ( faceX + 20 > pooX[index] &&
-					 faceX < pooX[index] + 24 &&
-					 faceY + 20 > pooY[index] &&
-					 faceY < pooY[index] + 24   )
-				{
-					pooIsEaten[index] = true;
-				}
-				else
-				{
-					DrawPoo( pooX[index], pooY[index] );
-				}
-			}
-		}
-		else
+void Game::ExitGame()
+{
+	framesCounter++;
+	if ( framesCounter >= 360 )
+	{
+		exit( 0 );
+	}
+}
+
+void Game::ComposeFrame()
+{
+	DrawFace( faceX, faceY );
+
+	for ( int index = 0; index < nPoo; index++ )
+	{
+		if (!pooIsEaten[ index ])
 		{
-			framesCounter++;
-			if ( framesCounter >= 360 )
-			{
-				exit( 0 );
-			}
-			gameOver = true;
-			if ( gameOver )
-			{
-				DrawGameOver( 375, 275 );
-			}
+			DrawPoo( pooX[index], pooY[index] );
 		}
+	}
+
+	if ( gameOver )
+	{
+		DrawGameOver( 375, 275 );
+		ExitGame();
 	}
 }
