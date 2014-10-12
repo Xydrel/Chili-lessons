@@ -22,7 +22,7 @@
 
 #include <d3d9.h>
 #include <math.h>
-#include <stdlib.h>
+//#include <stdlib.h>
 
 class D3DGraphics
 {
@@ -31,7 +31,7 @@ public:
 	~D3DGraphics();
 
 	void PutPixel( int x, int y, int r, int g, int b );
-
+	void DrawDisc( int cx, int cy, int rad, int r, int g, int b );
 
 	void BeginFrame();
 	void EndFrame();
@@ -39,6 +39,9 @@ public:
 private:
 	IDirect3D9*			pDirect3D;
 	IDirect3DDevice9*	pDevice;
+
+	IDirect3DSurface9*	pBackBuffer;
+	D3DLOCKED_RECT		backRect;
 };
 
 
