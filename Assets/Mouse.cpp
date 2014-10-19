@@ -1,7 +1,7 @@
 /****************************************************************************************** 
  *	Chili DirectX Framework Version 12.04.24											  *	
- *	Game.cpp																			  *
- *	Copyright 2012 PlanetChili.net														  *
+ *	Mouse.cpp																		  *
+ *	Copyright 2012 PlanetChili <http://www.planetchili.net>								  *
  *																						  *
  *	This file is part of The Chili DirectX Framework.									  *
  *																						  *
@@ -18,26 +18,69 @@
  *	You should have received a copy of the GNU General Public License					  *
  *	along with The Chili DirectX Framework.  If not, see <http://www.gnu.org/licenses/>.  *
  ******************************************************************************************/
-#include "Game.h"
+#include "Mouse.h"
 
-Game::Game( HWND hWnd,const KeyboardServer& kServer,const MouseServer& mServer )
-:	gfx( hWnd ),
-	audio( hWnd ),
-	kbd( kServer ),
-	mouse( mServer )
+MouseClient::MouseClient( const MouseServer& server )
+: server( server )
 {}
-
-void Game::Go()
+int MouseClient::GetMouseX() const
 {
-	gfx.BeginFrame();
-	ComposeFrame();
-	gfx.EndFrame();
+	return server.x;
+}
+int MouseClient::GetMouseY() const
+{
+	return server.y;
+}
+bool MouseClient::LeftIsPressed() const
+{
+	return server.leftIsPressed;
+}
+bool MouseClient::RightIsPressed() const
+{
+	return server.rightIsPressed;
+}
+bool MouseClient::IsInWindow() const
+{
+	return server.isInWindow;
 }
 
-void Game::ComposeFrame()
+MouseServer::MouseServer()
+:	isInWindow( false ),
+	leftIsPressed( false ),
+	rightIsPressed( false ),
+	x( -1 ),
+	y( -1 )
+{}
+void MouseServer::OnMouseMove( int x,int y )
 {
-	if ( mouse.IsInWindow() )
-	{
-		gfx.DrawLine( 400, 300, mouse.GetMouseX(), mouse.GetMouseY(), 255, 255, 255 );
-	}
+	this->x = x;
+	this->y = y;
+}
+void MouseServer::OnMouseLeave()
+{
+	isInWindow = false;
+}
+void MouseServer::OnMouseEnter()
+{
+	isInWindow = true;
+}
+void MouseServer::OnLeftPressed()
+{
+	leftIsPressed = true;
+}
+void MouseServer::OnLeftReleased()
+{
+	leftIsPressed = false;
+}
+void MouseServer::OnRightPressed()
+{
+	rightIsPressed = true;
+}
+void MouseServer::OnRightReleased()
+{
+	rightIsPressed = false;
+}
+bool MouseServer::IsInWindow() const
+{
+	return isInWindow;
 }

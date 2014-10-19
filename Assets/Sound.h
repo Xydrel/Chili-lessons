@@ -1,7 +1,8 @@
 /****************************************************************************************** 
  *	Chili DirectX Framework Version 12.04.24											  *	
- *	Game.cpp																			  *
+ *	Sound.h																				  *
  *	Copyright 2012 PlanetChili.net														  *
+ *  Based on code obtained from http://www.rastertek.com								  *
  *																						  *
  *	This file is part of The Chili DirectX Framework.									  *
  *																						  *
@@ -18,26 +19,56 @@
  *	You should have received a copy of the GNU General Public License					  *
  *	along with The Chili DirectX Framework.  If not, see <http://www.gnu.org/licenses/>.  *
  ******************************************************************************************/
-#include "Game.h"
+#pragma once
 
-Game::Game( HWND hWnd,const KeyboardServer& kServer,const MouseServer& mServer )
-:	gfx( hWnd ),
-	audio( hWnd ),
-	kbd( kServer ),
-	mouse( mServer )
-{}
+#include <windows.h>
+#include <mmsystem.h>
+#include <dsound.h>
+#include <stdio.h>
 
-void Game::Go()
+class DSound;
+
+class Sound
 {
-	gfx.BeginFrame();
-	ComposeFrame();
-	gfx.EndFrame();
-}
+	friend DSound;
+public:
+	Sound( const Sound& base );
+	Sound();
+	~Sound();
+	const Sound& operator=( const Sound& rhs );
+	void Play( int attenuation = DSBVOLUME_MAX );
+private:
+	Sound( IDirectSoundBuffer8* pSecondaryBuffer );
+private:
+	IDirectSoundBuffer8* pBuffer;
+};
 
-void Game::ComposeFrame()
+class DSound
 {
-	if ( mouse.IsInWindow() )
+private:
+	struct WaveHeaderType
 	{
-		gfx.DrawLine( 400, 300, mouse.GetMouseX(), mouse.GetMouseY(), 255, 255, 255 );
-	}
-}
+		char chunkId[4];
+		unsigned long chunkSize;
+		char format[4];
+		char subChunkId[4];
+		unsigned long subChunkSize;
+		unsigned short audioFormat;
+		unsigned short numChannels;
+		unsigned long sampleRate;
+		unsigned long bytesPerSecond;
+		unsigned short blockAlign;
+		unsigned short bitsPerSample;
+		char dataChunkId[4];
+		unsigned long dataSize;
+	};
+public:
+	DSound( HWND hWnd );
+	~DSound();
+	Sound CreateSound( char* wavFileName );
+private:
+	DSound();
+private:	
+	IDirectSound8* pDirectSound;
+	IDirectSoundBuffer* pPrimaryBuffer;
+};

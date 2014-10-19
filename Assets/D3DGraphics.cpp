@@ -22,6 +22,8 @@
 #include <math.h>
 #include <assert.h>
 
+void swap( int* x1, int* x2 );
+
 D3DGraphics::D3DGraphics( HWND hWnd )
 {
 	HRESULT result;
@@ -111,6 +113,14 @@ void D3DGraphics::DrawDisc( int cx,int cy,int r,int rd,int g,int b )
 	}
 }
 
+
+void swap( int* x1, int* x2 )
+{
+	int temp = *x1;
+	*x1 = *x2;
+	*x2 = temp;
+}
+
 void D3DGraphics::DrawLine( int x1,int y1,int x2,int y2,int r,int g,int blu )
 {
 	int dx = x2 - x1;
@@ -124,12 +134,8 @@ void D3DGraphics::DrawLine( int x1,int y1,int x2,int y2,int r,int g,int blu )
 	{
 		if( dy < 0 )
 		{
-			int temp = x1;
-			x1 = x2;
-			x2 = temp;
-			temp = y1;
-			y1 = y2;
-			y2 = temp;
+			swap( &x1, &x2 );
+			swap( &y1, &y2 );
 		}
 		float m = (float)dx / (float)dy;
 		float b = x1 - m*y1;
@@ -143,12 +149,8 @@ void D3DGraphics::DrawLine( int x1,int y1,int x2,int y2,int r,int g,int blu )
 	{
 		if( dx < 0 )
 		{
-			int temp = x1;
-			x1 = x2;
-			x2 = temp;
-			temp = y1;
-			y1 = y2;
-			y2 = temp;
+			swap( &x1, &x2 );
+			swap( &y1, &y2 );
 		}
 		float m = (float)dy / (float)dx;
 		float b = y1 - m*x1;

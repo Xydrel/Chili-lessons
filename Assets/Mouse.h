@@ -1,7 +1,7 @@
 /****************************************************************************************** 
  *	Chili DirectX Framework Version 12.04.24											  *	
- *	Game.cpp																			  *
- *	Copyright 2012 PlanetChili.net														  *
+ *	Mouse.h																		  *
+ *	Copyright 2012 PlanetChili <http://www.planetchili.net>								  *
  *																						  *
  *	This file is part of The Chili DirectX Framework.									  *
  *																						  *
@@ -18,26 +18,40 @@
  *	You should have received a copy of the GNU General Public License					  *
  *	along with The Chili DirectX Framework.  If not, see <http://www.gnu.org/licenses/>.  *
  ******************************************************************************************/
-#include "Game.h"
+#pragma once
 
-Game::Game( HWND hWnd,const KeyboardServer& kServer,const MouseServer& mServer )
-:	gfx( hWnd ),
-	audio( hWnd ),
-	kbd( kServer ),
-	mouse( mServer )
-{}
+class MouseServer;
 
-void Game::Go()
+class MouseClient
 {
-	gfx.BeginFrame();
-	ComposeFrame();
-	gfx.EndFrame();
-}
+public:
+	MouseClient( const MouseServer& server );
+	int GetMouseX() const;
+	int GetMouseY() const;
+	bool LeftIsPressed() const;
+	bool RightIsPressed() const;
+	bool IsInWindow() const;
+private:
+	const MouseServer& server;
+};
 
-void Game::ComposeFrame()
+class MouseServer
 {
-	if ( mouse.IsInWindow() )
-	{
-		gfx.DrawLine( 400, 300, mouse.GetMouseX(), mouse.GetMouseY(), 255, 255, 255 );
-	}
-}
+	friend MouseClient;
+public:
+	MouseServer();
+	void OnMouseMove( int x,int y );
+	void OnMouseLeave();
+	void OnMouseEnter();
+	void OnLeftPressed();
+	void OnLeftReleased();
+	void OnRightPressed();
+	void OnRightReleased();
+	bool IsInWindow() const;
+private:
+	int x;
+	int y;
+	bool leftIsPressed;
+	bool rightIsPressed;
+	bool isInWindow;
+};
