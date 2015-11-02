@@ -22,13 +22,13 @@
 
 #include "D3DGraphics.h"
 #include "Keyboard.h"
-#include "Mouse.h"
-#include "Sound.h"
+//#include "Mouse.h"
+//#include "Sound.h"
 
 class Game
 {
 public:
-	Game( HWND hWnd,const KeyboardServer& kServer,const MouseServer& mServer );
+	Game( HWND hWnd,const KeyboardServer& kServer/*,const MouseServer& mServer*/ );
 	void Go();
 private:
 	void ComposeFrame();
@@ -39,8 +39,8 @@ private:
 private:
 	D3DGraphics gfx;
 	KeyboardClient kbd;
-	MouseClient mouse;
-	DSound audio;
+	//MouseClient mouse;
+	//DSound audio;
 	/********************************/
 	/*  User Variables              */
 

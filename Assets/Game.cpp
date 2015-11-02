@@ -20,11 +20,11 @@
  ******************************************************************************************/
 #include "Game.h"
 
-Game::Game( HWND hWnd,const KeyboardServer& kServer,const MouseServer& mServer )
-:	gfx( hWnd ),
-	audio( hWnd ),
-	kbd( kServer ),
-	mouse( mServer )
+Game::Game( HWND hWnd,const KeyboardServer& kServer/*,const MouseServer& mServer*/ )
+	: gfx( hWnd )
+//	, audio( hWnd )
+	, kbd( kServer )
+//	, mouse( mServer )
 {}
 
 void Game::Go()

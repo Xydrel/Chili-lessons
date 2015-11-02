@@ -177,3 +177,8 @@ void D3DGraphics::DrawCircle( int centerX,int centerY,int radius,int r,int g,int
 		PutPixel( centerX - y,centerY - x,r,g,b );
 	}
 }
+
+void D3DGraphics::DrawSphere()
+{
+	// Add code to draw a sphere using directX 
+}

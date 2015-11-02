@@ -33,6 +33,8 @@ public:
 	void DrawDisc( int cx,int cy,int r,int rd,int g,int b );
 	void BeginFrame();
 	void EndFrame();
+
+	void DrawSphere();
 private:
 	IDirect3D9*			pDirect3D;
 	IDirect3DDevice9*	pDevice;

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -20,12 +20,14 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v120</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v120</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -39,8 +41,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(DXSDK_DIR)include;C:\Program Files\boost_1_49_0;$(IncludePath)</IncludePath>
-    <LibraryPath>$(DXSDK_DIR)lib\x86;C:\Program Files\boost_1_49_0\stage\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(DXSDK_DIR)include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(DXSDK_DIR)lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -83,19 +85,18 @@
     <ClCompile Include="..\Assets\D3DGraphics.cpp" />
     <ClCompile Include="..\Assets\Game.cpp" />
     <ClCompile Include="..\Assets\Keyboard.cpp" />
-    <ClCompile Include="..\Assets\Mouse.cpp" />
-    <ClCompile Include="..\Assets\Sound.cpp" />
     <ClCompile Include="..\Assets\Timer.cpp" />
     <ClCompile Include="..\Assets\Windows.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Assets\Cordenant.h" />
     <ClInclude Include="..\Assets\D3DGraphics.h" />
     <ClInclude Include="..\Assets\Game.h" />
     <ClInclude Include="..\Assets\Keyboard.h" />
-    <ClInclude Include="..\Assets\Mouse.h" />
     <ClInclude Include="..\Assets\Resource.h" />
-    <ClInclude Include="..\Assets\Sound.h" />
+    <ClInclude Include="..\Assets\StringHelpers.h" />
     <ClInclude Include="..\Assets\Timer.h" />
+    <ClInclude Include="Vectors.h" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="..\Assets\ChiliDirectXFramework.res" />

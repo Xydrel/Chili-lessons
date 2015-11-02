@@ -22,10 +22,10 @@
 #include <wchar.h>
 #include "Game.h"
 #include "resource.h"
-#include "Mouse.h"
+//#include "Mouse.h"
 
 static KeyboardServer kServ;
-static MouseServer mServ;
+//static MouseServer mServ;
 
 LRESULT WINAPI MsgProc( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam )
 {
@@ -85,51 +85,51 @@ LRESULT WINAPI MsgProc( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam )
 		// ************ END KEYBOARD MESSAGES ************ //
 
 		// ************ MOUSE MESSAGES ************ //
-		case WM_MOUSEMOVE:
-			{
-				int x = (short)LOWORD( lParam );
-				int y = (short)HIWORD( lParam );
-				if( x > 0 && x < 800 && y > 0 && y < 600 )
-				{
-					mServ.OnMouseMove( x,y );
-					if( !mServ.IsInWindow() )
-					{
-						SetCapture( hWnd );
-						mServ.OnMouseEnter();
-					}
-				}
-				else
-				{
-					if( wParam & (MK_LBUTTON | MK_RBUTTON) )
-					{
-						x = max( 0,x );
-						x = min( 799,x );
-						y = max( 0,y );
-						y = min( 599,y );
-						mServ.OnMouseMove( x,y );
-					}
-					else
-					{
-						ReleaseCapture();
-						mServ.OnMouseLeave();
-						mServ.OnLeftReleased();
-						mServ.OnRightReleased();
-					}
-				}
-			}
-			break;
-		case WM_LBUTTONDOWN:
-			mServ.OnLeftPressed();
-			break;
-		case WM_RBUTTONDOWN:
-			mServ.OnRightPressed();
-			break;
-		case WM_LBUTTONUP:
-			mServ.OnLeftReleased();
-			break;
-		case WM_RBUTTONUP:
-			mServ.OnRightReleased();
-			break;
+		//case WM_MOUSEMOVE:
+		//	{
+		//		int x = (short)LOWORD( lParam );
+		//		int y = (short)HIWORD( lParam );
+		//		if( x > 0 && x < 800 && y > 0 && y < 600 )
+		//		{
+		//			mServ.OnMouseMove( x,y );
+		//			if( !mServ.IsInWindow() )
+		//			{
+		//				SetCapture( hWnd );
+		//				mServ.OnMouseEnter();
+		//			}
+		//		}
+		//		else
+		//		{
+		//			if( wParam & (MK_LBUTTON | MK_RBUTTON) )
+		//			{
+		//				x = max( 0,x );
+		//				x = min( 799,x );
+		//				y = max( 0,y );
+		//				y = min( 599,y );
+		//				mServ.OnMouseMove( x,y );
+		//			}
+		//			else
+		//			{
+		//				ReleaseCapture();
+		//				mServ.OnMouseLeave();
+		//				mServ.OnLeftReleased();
+		//				mServ.OnRightReleased();
+		//			}
+		//		}
+		//	}
+		//	break;
+		//case WM_LBUTTONDOWN:
+		//	mServ.OnLeftPressed();
+		//	break;
+		//case WM_RBUTTONDOWN:
+		//	mServ.OnRightPressed();
+		//	break;
+		//case WM_LBUTTONUP:
+		//	mServ.OnLeftReleased();
+		//	break;
+		//case WM_RBUTTONUP:
+		//	mServ.OnRightReleased();
+		//	break;
 		// ************ END MOUSE MESSAGES ************ //
     }
 
@@ -160,7 +160,7 @@ int WINAPI wWinMain( HINSTANCE hInst,HINSTANCE,LPWSTR,INT )
     ShowWindow( hWnd,SW_SHOWDEFAULT );
     UpdateWindow( hWnd );
 
-	Game theGame( hWnd,kServ,mServ );
+	Game theGame( hWnd,kServ/*,mServ*/ );
 	
     MSG msg;
     ZeroMemory( &msg,sizeof( msg ) );
