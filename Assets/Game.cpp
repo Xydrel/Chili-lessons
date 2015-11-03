@@ -36,8 +36,8 @@ void Game::Go()
 
 void Game::ComposeFrame()
 {
-	if ( mouse.IsInWindow() )
+	/*if ( mouse.IsInWindow() )
 	{
 		gfx.DrawLine( 400, 300, mouse.GetMouseX(), mouse.GetMouseY(), 255, 255, 255 );
-	}
+	}*/
 }
